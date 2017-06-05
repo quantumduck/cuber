@@ -1,0 +1,93 @@
+html {
+  width: 100%;
+  font-family: monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 70%;
+  margin: auto;
+  text-align: center;
+  padding: 0;
+  /*text-align: center;*/
+}
+
+#drawing-container{
+  display: inline-block;
+  border: 2px solid;
+  margin: 0;
+  padding: 0.5em;
+}
+
+#drawing-area {
+  display: inline-block;
+  font-family: monospace;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  resize: none;
+  cursor: normal;
+}
+
+#drawing-area::selection,
+#drawing-container::selection {
+  background-color: #FFF;
+}
+
+.top-left {
+  cursor: nw-resize;
+}
+
+.top-right {
+  cursor: ne-resize;
+}
+
+.bottom-left {
+  cursor: sw-resize;
+}
+
+.bottom-right {
+  cursor: se-resize;
+}
+
+.top-edge {
+  cursor: n-resize;
+}
+
+.bottom-edge {
+  cursor: s-resize;
+}
+
+.left-edge {
+  cursor: w-resize;
+}
+
+.right-edge {
+  cursor: e-resize;
+}
+
+.unselected {
+  background-color: #dddddd;
+}
+
+.selected {
+  background-color: #ddddff;
+}
+
+.cursor-overwrite {
+  background-color: #ffbbbb;
+}
+
+.cursor {
+  background-color: #bbffbb;
+}
+
+button {
+  font-family: monospace;
+  line-height: 1em;
+}

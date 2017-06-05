@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>JSCII</title>
+    <meta name="description" content="An open-souce Jacascript ASCII drawing platform.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="js/areas.js"></script>
+    <script type="text/javascript" src="js/root_area.js"></script>
+    <script type="text/javascript" src="js/borders.js"></script>
+    <script type="text/javascript" src="js/rendering.js"></script>
+    <script type="text/javascript" src="js/selection.js"></script> -->
+    <script type="text/javascript" src="js/main.js"></script>
+  </head>
+
+  <body>
+    <h1 id='title'>Welcome to Cuber</h1>
+
+    <p class='messages'>Please Wait...</p>
+
+    <div id='drawing-container'>
+      <div id="drawing-area", rows='31', cols='54', autofocus='true', readonly='false'>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      </div>
+    </div>
+    <p class='errors'></p>
+    <div class='controls'>
+      <button id='text'><br>ABC_<br>&nbsp;</button>
+      <button id='box'>+--+<br>|&nbsp;&nbsp;|<br>+--+</button>
+      <button id='line'>&nbsp;+-&gt;<br>&nbsp;|&nbsp;&nbsp;<br>-+&nbsp;&nbsp;</button>
+      <button id='freeform'>x&nbsp;&nbsp;&nbsp;<br>&nbsp;x&nbsp;x<br>&nbsp;xx&nbsp;</button>
+    </div>
+
+    <p id='message-box'>Loading...</p>
+
+
+    <pre
+><span style="cursor:auto;"     >auto</span>        <span style="cursor:move;"         >move</span>           <span style="cursor:no-drop;"    >no-drop</span>      <span style="cursor:col-resize;">col-resize</span>
+<span style="cursor:all-scroll;">all-scroll</span>  <span style="cursor:pointer;"      >pointer</span>        <span style="cursor:not-allowed;">not-allowed</span>  <span style="cursor:row-resize;">row-resize</span>
+<span style="cursor:crosshair;" >crosshair</span>   <span style="cursor:progress;"     >progress</span>       <span style="cursor:e-resize;"   >e-resize</span>     <span style="cursor:ne-resize;" >ne-resize</span>
+<span style="cursor:default;"   >default</span>     <span style="cursor:text;"         >text</span>           <span style="cursor:n-resize;"   >n-resize</span>     <span style="cursor:nw-resize;" >nw-resize</span>
+<span style="cursor:help;"      >help</span>        <span style="cursor:vertical-text;">vertical-text</span>  <span style="cursor:s-resize;"   >s-resize</span>     <span style="cursor:se-resize;" >se-resize</span>
+<span style="cursor:inherit;"   >inherit</span>     <span style="cursor:wait;"         >wait</span>           <span style="cursor:w-resize;"   >w-resize</span>     <span style="cursor:sw-resize;" >sw-resize</span>
+</pre>
+
+
+  </body>
+
+</html>

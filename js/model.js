@@ -102,9 +102,12 @@ function drawCollection(collection) {
   var drawing = [[]];
   console.log(drawing);
   for (var k = 0; k < collection.length; k++) {
+    var k = 0;
     var nextCube = collection[k].projection();
     var col = nextCube.col + offset[0];
     var row = nextCube.row + offset[1];
+    var row = 0;
+    var col = 0;
     // Set offsets so that row and column are positive:
     if (col < 0) {
       for (var j = 0; j < drawing.length; j++) {
@@ -133,7 +136,7 @@ function drawCollection(collection) {
       for (var j = 0; j < drawing.length; j++) {
         for (var i = 0; i < diff; i++) {
           drawing[j].push('&nbsp;');
-          console.log(i);
+          // console.log(i);
         }
       }
     }
@@ -147,12 +150,13 @@ function drawCollection(collection) {
         drawing.push(blankRow);
       }
     }
+    console.log(drawing);
     // Finally, add in the cube:
-    drawing[row][col] = '\\';
-    drawing[row][col + 1] = '/';
-    drawing[row][col + 2] = '_';
-    drawing[row][col + 3] = '/';
-    drawing[row + 1][col] = '/';
+    // drawing[row][col] = '\\';
+    // drawing[row][col + 1] = '/';
+    // drawing[row][col + 2] = '_';
+    // drawing[row][col + 3] = '/';
+    drawing[2][3] = 'a';
     // drawing[row + 1][col + 1] = '\\';
     // drawing[row + 1][col + 2] = '_';
     // drawing[row + 1][col + 3] = '\\';

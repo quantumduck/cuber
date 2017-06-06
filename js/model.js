@@ -36,7 +36,7 @@ function newPoint(x, y, z) {
     projection: function() {
       return {
         row: this.x + this.z - (2 * this.y),
-        col: this.x - this.z
+        col: this.z - this.x
       }
     }
   }
@@ -47,26 +47,60 @@ function drawCollection(collection) {
   var drawing = [[]];
   for (var k = 0; k < collection.length; k++) {
     var nextPoint = projection(collection[k]);
-    if (offset[0] + nextPoint.row < 0) {
+    var row = nextPoint.row + offset[0];
+    var col = nextPoint.col + offset[1];
+    // Set offsets so that row and column are positive:
+    if (row < 0) {
       for (var j = 0; j < drawing.length; j++) {
-        for (var i = 0; i <= offset[0] - nextPoint.row + 2) {
+        for (var i = 0; i <= -row; i++) {
           drawing[0].unshift(' ');
-
         }
       }
-      offset[0] -= nextPoint.row;
+      offset[0] -= row;
+      row = 0;
     }
-    if (offset[1] + nextPoint.col < 0) {
+    // Set offsets so that row and column are positive:
+    if (col < 0) {
       var blankRow = [];
       for (var i = 0; i < drawing[0].length; i++) {
         blankRow.push(' ');
       }
-      for (var j = 0; j <= offset[1] - nextPoint.col; j++) {
+      for (var j = 0; j <= -col; j++) {
         drawing.unshift(blankRow);
       }
+      offset[1] -= col;
+      col = 0;
     }
-    if (nextPoint.row >= drawing[0].length - offset[0]) {
-      
+    // Ensure the array is large enough:
+    if (row >= drawing[0].length - 4) {
+      for (var j = 0; j < collection.length; j++) {
+        for (var i = 0; i < row + 4 - drawing[0].length; i++) {
+          drawing[0].push(' ');
+        }
+      }
+    }
+    if (col >= drawing.length - 3) {
+      var blankRow = [];
+      for (var i = 0; i < drawing[0].length; i++) {
+        blankRow.push(' ');
+      }
+      for (var j = 0; j < col + 3 - drawing.length; j++) {
+        drawing.push(blankRow);
+      }
+    }
+    // Finally, add in the point:
+    drawing[col][row] = '\\';
+    drawing[col][row + 1] = '/';
+    drawing[col[row + 2] = '_';
+    drawing[col][row + 3] = '/';
+    drawing[col + 1][row] = '/';
+    drawing[col + 1][row + 1] = '\\';
+    drawing[col + 1][row + 2] = '_';
+    drawing[col + 1][row + 3] = '\\';
+    if (drawing [col + 2][row + 2] === ' ') {
+      drawing[col + 2][row + 2] = '_';
+    } else if (draing[col + 2][row + 1] === ' ') {
+      drawing[col + 2][row + 1] = '_';
     }
   }
 }

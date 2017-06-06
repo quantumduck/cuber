@@ -1,18 +1,45 @@
-function addCubes(collection, newCubes) {
-  var newCollection = collection;
-  for (var k = 0; k < newCubes.length; k++) {
+function newCollection(cubes) {
+  // Take an array of cubes and order it
+  var collection = [];
+  collection.addCube = function(cube) {
     var index = 0;
-    while(newCubes[k].greaterThan(collection[index])) {
+    while(cube.greaterThan(this[index])) {
       index++;
-      console.log(index);
     }
-    for (var i = collection.length; i > index; i--) {
-      // Shift cubes over:
-      newCollection[i] = newCollection[i - 1];
+    if (cube.equals(this[index])) {
+      // skip duplicates
+    } else {
+      for (var i = collection.length; i > index; i--) {
+        // Shift cubes over:
+        this[i] = this[i - 1];
+      }
+      this[index] = cube;
     }
-    newCollection[index] = newCubes[k];
-  }
-  return newCollection;
+  };
+  collection.deleteCube = function(cube) {
+    var deleted = false;
+    for (var i = 0; i < this.length; i++) {
+      if (deleted) {
+        this[i] = this[i + 1];
+      } else if (cube.equals(this[i])) {
+        this[i] = this[i + 1];
+        deleted = true;
+      }
+    }
+    this.pop();
+  };
+  collection.deleteCubes = function(extracubes) {
+    for (var k = 0; k < extraCubes.length; k++) {
+      this.deleteCube(extraCubes[k]);
+    }
+  };
+  collection.addCubes = function(moreCubes) {
+    for (var k = 0; k < moreCubes.length; k++) {
+      this.addCube(moreCubes[k]);
+    }
+  };
+  collection.addCubes(cubes);
+  return collection;
 }
 
 function newCube(x, y, z) {

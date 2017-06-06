@@ -1,11 +1,19 @@
 function newLongPiece(x, y, z, orientation) {
   var type = "long-piece";
-  return newCollection([
+  var default =  newCollection([
     newCube(x, y, z, type),
     newCube(x, y, z + 1, type),
     newCube(x, y, z + 2, type),
     newCube(x, y, z + 3, type)
   ]);
+  default.setOrientation = function(number) {
+    switch(number) {
+      case 1:
+        
+    }
+  }
+
+  return default;
 }
 
 function newLPiece(x, y, z, orientation) {

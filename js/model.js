@@ -38,6 +38,19 @@ function newCollection(cubes) {
       this.addCube(moreCubes[k]);
     }
   };
+  collection.rotate = function(point, axis) {
+    var clockwise = false;
+    if (axis[0] === '-') {
+      clockwise = true;
+      axis = axis[1];
+    }
+    switch(axis) {
+      case 'x':
+      for (var i = 0; i < this.length; i++) {
+
+      }
+    }
+  }
   collection.addCubes(cubes);
   return collection;
 }
@@ -83,46 +96,46 @@ function newCube(x, y, z, type) {
       }
     },
     rotateX(centreCube, clockwise) {
-      var roated = this;
       if (!centreCube) {
         centreCube = { x: 0, y: 0, z: 0 };
       }
       if (clockwise) {
-        rotated.y = centreCube.y + (this.z - centreCube.z);
-        rotated.z = centreCube.z - (this.y - centreCube.y);
+        var temp = centreCube.y + (this.z - centreCube.z);
+        this.z = centreCube.z - (this.y - centreCube.y);
+        this.y = temp;
       } else {
-        rotated.y = centreCube.y - (this.z - centreCube.z);
-        rotated.z = centreCube.z + (this.y - centreCube.y);
+        var temp = centreCube.y - (this.z - centreCube.z);
+        this.z = centreCube.z + (this.y - centreCube.y);
+        this.y = temp;
       }
-      return rotated;
     },
     rotateY(centreCube, clockwise) {
-      var roated = this;
       if (!centreCube) {
         centreCube = { x: 0, y: 0, z: 0 };
       }
       if (clockwise) {
-        rotated.x = centreCube.x - (this.z - centreCube.z);
-        rotated.z = centreCube.z + (this.x - centreCube.x);
+        var temp = centreCube.x - (this.z - centreCube.z);
+        this.z = centreCube.z + (this.x - centreCube.x);
+        this.x = temp;
       } else {
-        rotated.x = centreCube.x + (this.z - centreCube.z);
-        rotated.z = centreCube.z - (this.x - centreCube.x);
+        var temp = centreCube.x + (this.z - centreCube.z);
+        this.z = centreCube.z - (this.x - centreCube.x);
+        this.x = temp;
       }
-      return rotated;
     },
     rotateZ(centreCube, clockwise) {
-      var roated = this;
       if (!centreCube) {
         centreCube = { x: 0, y: 0, z: 0 };
       }
       if (clockwise) {
-        rotated.y = centreCube.y - (this.x - centreCube.x);
-        rotated.x = centreCube.x + (this.y - centreCube.y);
+        var temp = centreCube.y - (this.x - centreCube.x);
+        this.x = centreCube.x + (this.y - centreCube.y);
+        this.y = temp;
       } else {
-        rotated.y = centreCube.y + (this.x - centreCube.x);
-        rotated.x = centreCube.x - (this.y - centreCube.y);
+        var temp = centreCube.y + (this.x - centreCube.x);
+        this.x = centreCube.x - (this.y - centreCube.y);
+        this.y = temp;
       }
-      return rotated;
     }
   }
 }

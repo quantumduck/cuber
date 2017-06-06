@@ -26,7 +26,7 @@ function newCube(x, y, z) {
       }
       if (this.x > cube.x) {
         return true;
-      } else if (this.y > cube.y) {
+      } else if (this.y < cube.y) {
         return true;
       } else if (this.z > cube.z) {
         return true;
@@ -50,7 +50,7 @@ function newCube(x, y, z) {
     },
     projection: function() {
       return {
-        col: this.x + this.z - (2 * this.y),
+        col: this.x + this.z + (2 * this.y),
         row: this.z - this.x
       }
     },
@@ -110,7 +110,7 @@ function drawCollection(collection) {
     // Set offsets so that row and column are positive:
     if (col < 0) {
       for (var j = 0; j < drawing.length; j++) {
-        for (var i = 0; i <= -col; i++) {
+        for (var i = 0; i < -col; i++) {
           drawing[j].unshift('&nbsp;');
         }
       }
@@ -119,7 +119,7 @@ function drawCollection(collection) {
     }
     // Set offsets so that row and column are positive:
     if (row < 0) {
-      for (var j = 0; j <= -row; j++) {
+      for (var j = 0; j < -row; j++) {
         var blankRow = [];
         for (var i = 0; i < drawing[0].length; i++) {
           blankRow.push('&nbsp;');

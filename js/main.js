@@ -11,10 +11,12 @@ $(function() {
   $(window).on('keydown', function(e) {
     // Parsing the keyboard
     window.allCubes.pop();
-    console.log(e.key);
+    console.log('(' + window.cursorCube.x + ', ' + window.cursorCube.y + ', ' + window.cursorCube.z + ')');
     switch (e.key) {
       case 's':
         addCubes(window.allCubes, [cursorCube]);
+        console.log('(' + window.cursorCube.x + ', ' + window.cursorCube.y + ', ' + window.cursorCube.z + ')');
+        console.log('(' + window.cursorCube.projection().col + ', ' +  window.cursorCube.projection().row + ')');
         window.cursorCube = newCube(0,0,0);
         break;
       case 'a':
@@ -30,10 +32,10 @@ $(function() {
         cursorCube.x++;
         break;
       case 'z':
-        cursorCube.y++;
+        cursorCube.y--;
         break;
       case 'x':
-        cursorCube.y--;
+        cursorCube.y++;
         break;
     }
     window.allCubes.push(cursorCube);

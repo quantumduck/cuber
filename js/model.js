@@ -1,9 +1,7 @@
 function addPoints(collection, newPoints) {
-
-}
-
-function drawPoint(drawing, points) {
-
+  for (var k = 0; k < newPoint.length; k++) {
+    
+  }
 }
 
 function newPoint(x, y, z) {
@@ -38,6 +36,48 @@ function newPoint(x, y, z) {
         row: this.x + this.z - (2 * this.y),
         col: this.z - this.x
       }
+    },
+    rotateX(centrePoint, clockwise) {
+      var roated = this;
+      if (!centrePoint) {
+        centrePoint = { x: 0, y: 0, z: 0 };
+      }
+      if (clockwise) {
+        rotated.y = centrePoint.y + (this.z - centrePoint.z);
+        rotated.z = centrePoint.z - (this.y - centrePoint.y);
+      } else {
+        rotated.y = centrePoint.y - (this.z - centrePoint.z);
+        rotated.z = centrePoint.z + (this.y - centrePoint.y);
+      }
+      return rotated;
+    },
+    rotateY(centrePoint, clockwise) {
+      var roated = this;
+      if (!centrePoint) {
+        centrePoint = { x: 0, y: 0, z: 0 };
+      }
+      if (clockwise) {
+        rotated.x = centrePoint.x - (this.z - centrePoint.z);
+        rotated.z = centrePoint.z + (this.x - centrePoint.x);
+      } else {
+        rotated.x = centrePoint.x + (this.z - centrePoint.z);
+        rotated.z = centrePoint.z - (this.x - centrePoint.x);
+      }
+      return rotated;
+    },
+    rotateZ(centrePoint, clockwise) {
+      var roated = this;
+      if (!centrePoint) {
+        centrePoint = { x: 0, y: 0, z: 0 };
+      }
+      if (clockwise) {
+        rotated.y = centrePoint.y - (this.x - centrePoint.x);
+        rotated.x = centrePoint.x + (this.y - centrePoint.y);
+      } else {
+        rotated.y = centrePoint.y + (this.x - centrePoint.x);
+        rotated.x = centrePoint.x - (this.y - centrePoint.y);
+      }
+      return rotated;
     }
   }
 }

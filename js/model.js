@@ -1,47 +1,46 @@
-function addPoints(collection, newPoints) {
+function addCubes(collection, newCubes) {
   var newCollection = collection;
-  for (var k = 0; k < newPoints.length; k++) {
+  for (var k = 0; k < newCubes.length; k++) {
     var index = newCollection.length;
-    var point = newPoints[k];
-    while(point.greaterThan(collection[index - 1])) {
+    while(newCubes[k].greaterThan(collection[index - 1])) {
       index--;
     }
     for (var i = collection.length; i > index; i--) {
-      // Shift points over:
+      // Shift cubes over:
       newCollection[i] = newCollection[i - 1];
     }
-    newCollection[index] = point;
+    newCollection[index] = newCubes[k];
   }
 }
 
-function newPoint(x, y, z) {
+function newCube(x, y, z) {
   return {
     x: x,
     y: y,
     z: z,
-    greaterThan: function(point) {
-      if(!point) {
+    greaterThan: function(cube) {
+      if(!cube) {
         return false;
       }
-      if (this.x > point.x) {
+      if (this.x > cube.x) {
         return true;
-      } else if (this.y < point.y) {
+      } else if (this.y < cube.y) {
         return true;
-      } else if (this.z > point.z) {
+      } else if (this.z > cube.z) {
         return true;
       } else {
         return false;
       }
     },
-    equals: function(point) {
-      if (!point) {
+    equals: function(cube) {
+      if (!cube) {
         return false;
       }
-      if (this.x !== point.x) {
+      if (this.x !== cube.x) {
         return false;
-      } else if (this.y !== point.y) {
+      } else if (this.y !== cube.y) {
         return false;
-      } else if (this.z !== point.z) {
+      } else if (this.z !== cube.z) {
         return false;
       } else {
         return true;
@@ -53,45 +52,45 @@ function newPoint(x, y, z) {
         col: this.z - this.x
       }
     },
-    rotateX(centrePoint, clockwise) {
+    rotateX(centreCube, clockwise) {
       var roated = this;
-      if (!centrePoint) {
-        centrePoint = { x: 0, y: 0, z: 0 };
+      if (!centreCube) {
+        centreCube = { x: 0, y: 0, z: 0 };
       }
       if (clockwise) {
-        rotated.y = centrePoint.y + (this.z - centrePoint.z);
-        rotated.z = centrePoint.z - (this.y - centrePoint.y);
+        rotated.y = centreCube.y + (this.z - centreCube.z);
+        rotated.z = centreCube.z - (this.y - centreCube.y);
       } else {
-        rotated.y = centrePoint.y - (this.z - centrePoint.z);
-        rotated.z = centrePoint.z + (this.y - centrePoint.y);
+        rotated.y = centreCube.y - (this.z - centreCube.z);
+        rotated.z = centreCube.z + (this.y - centreCube.y);
       }
       return rotated;
     },
-    rotateY(centrePoint, clockwise) {
+    rotateY(centreCube, clockwise) {
       var roated = this;
-      if (!centrePoint) {
-        centrePoint = { x: 0, y: 0, z: 0 };
+      if (!centreCube) {
+        centreCube = { x: 0, y: 0, z: 0 };
       }
       if (clockwise) {
-        rotated.x = centrePoint.x - (this.z - centrePoint.z);
-        rotated.z = centrePoint.z + (this.x - centrePoint.x);
+        rotated.x = centreCube.x - (this.z - centreCube.z);
+        rotated.z = centreCube.z + (this.x - centreCube.x);
       } else {
-        rotated.x = centrePoint.x + (this.z - centrePoint.z);
-        rotated.z = centrePoint.z - (this.x - centrePoint.x);
+        rotated.x = centreCube.x + (this.z - centreCube.z);
+        rotated.z = centreCube.z - (this.x - centreCube.x);
       }
       return rotated;
     },
-    rotateZ(centrePoint, clockwise) {
+    rotateZ(centreCube, clockwise) {
       var roated = this;
-      if (!centrePoint) {
-        centrePoint = { x: 0, y: 0, z: 0 };
+      if (!centreCube) {
+        centreCube = { x: 0, y: 0, z: 0 };
       }
       if (clockwise) {
-        rotated.y = centrePoint.y - (this.x - centrePoint.x);
-        rotated.x = centrePoint.x + (this.y - centrePoint.y);
+        rotated.y = centreCube.y - (this.x - centreCube.x);
+        rotated.x = centreCube.x + (this.y - centreCube.y);
       } else {
-        rotated.y = centrePoint.y + (this.x - centrePoint.x);
-        rotated.x = centrePoint.x - (this.y - centrePoint.y);
+        rotated.y = centreCube.y + (this.x - centreCube.x);
+        rotated.x = centreCube.x - (this.y - centreCube.y);
       }
       return rotated;
     }
@@ -102,14 +101,14 @@ function drawCollection(collection) {
   var offset = [0,0];
   var drawing = [[]];
   for (var k = 0; k < collection.length; k++) {
-    var nextPoint = projection(collection[k]);
-    var row = nextPoint.row + offset[0];
-    var col = nextPoint.col + offset[1];
+    var nextCube = projection(collection[k]);
+    var row = nextCube.row + offset[0];
+    var col = nextCube.col + offset[1];
     // Set offsets so that row and column are positive:
     if (row < 0) {
       for (var j = 0; j < drawing.length; j++) {
         for (var i = 0; i <= -row; i++) {
-          drawing[0].unshift(' ');
+          drawing[0].unshift('&nbsp;');
         }
       }
       offset[0] -= row;
@@ -119,7 +118,7 @@ function drawCollection(collection) {
     if (col < 0) {
       var blankRow = [];
       for (var i = 0; i < drawing[0].length; i++) {
-        blankRow.push(' ');
+        blankRow.push('&nbsp;');
       }
       for (var j = 0; j <= -col; j++) {
         drawing.unshift(blankRow);
@@ -131,20 +130,20 @@ function drawCollection(collection) {
     if (row >= drawing[0].length - 4) {
       for (var j = 0; j < collection.length; j++) {
         for (var i = 0; i < row + 4 - drawing[0].length; i++) {
-          drawing[0].push(' ');
+          drawing[0].push('&nbsp;');
         }
       }
     }
     if (col >= drawing.length - 3) {
       var blankRow = [];
       for (var i = 0; i < drawing[0].length; i++) {
-        blankRow.push(' ');
+        blankRow.push('&nbsp;');
       }
       for (var j = 0; j < col + 3 - drawing.length; j++) {
         drawing.push(blankRow);
       }
     }
-    // Finally, add in the point:
+    // Finally, add in the cube:
     drawing[col][row] = '\\';
     drawing[col][row + 1] = '/';
     drawing[col[row + 2] = '_';
@@ -153,10 +152,11 @@ function drawCollection(collection) {
     drawing[col + 1][row + 1] = '\\';
     drawing[col + 1][row + 2] = '_';
     drawing[col + 1][row + 3] = '\\';
-    if (drawing [col + 2][row + 2] === ' ') {
+    if (drawing [col + 2][row + 2] === '&nbsp;') {
       drawing[col + 2][row + 2] = '_';
-    } else if (draing[col + 2][row + 1] === ' ') {
+    } else if (draing[col + 2][row + 1] === '&nbsp;') {
       drawing[col + 2][row + 1] = '_';
     }
   }
+  return drawing.join('<br>').split(',').join('');
 }

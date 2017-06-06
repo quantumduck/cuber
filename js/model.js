@@ -1,6 +1,16 @@
 function addPoints(collection, newPoints) {
-  for (var k = 0; k < newPoint.length; k++) {
-    
+  var newCollection = collection;
+  for (var k = 0; k < newPoints.length; k++) {
+    var index = newCollection.length;
+    var point = newPoints[k];
+    while(point.greaterThan(collection[index - 1])) {
+      index--;
+    }
+    for (var i = collection.length; i > index; i--) {
+      // Shift points over:
+      newCollection[i] = newCollection[i - 1];
+    }
+    newCollection[index] = point;
   }
 }
 
@@ -10,6 +20,9 @@ function newPoint(x, y, z) {
     y: y,
     z: z,
     greaterThan: function(point) {
+      if(!point) {
+        return false;
+      }
       if (this.x > point.x) {
         return true;
       } else if (this.y < point.y) {
@@ -21,6 +34,9 @@ function newPoint(x, y, z) {
       }
     },
     equals: function(point) {
+      if (!point) {
+        return false;
+      }
       if (this.x !== point.x) {
         return false;
       } else if (this.y !== point.y) {

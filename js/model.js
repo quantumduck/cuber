@@ -47,6 +47,7 @@ function newCube(x, y, z) {
     x: x,
     y: y,
     z: z,
+    formatClass: 'red',
     greaterThan: function(cube) {
       if(!cube) {
         return false;
@@ -126,7 +127,7 @@ function newCube(x, y, z) {
   }
 }
 
-function drawCollection(collection) {
+function flattenCollection(collection) {
   var offset = [0,0];
   var drawing = [[]];
   // console.log(drawing);
@@ -138,7 +139,7 @@ function drawCollection(collection) {
     if (col < 0) {
       for (var j = 0; j < drawing.length; j++) {
         for (var i = 0; i < -col; i++) {
-          drawing[j].unshift('&nbsp;');
+          drawing[j].unshift(' ');
         }
       }
       offset[0] -= col;
@@ -149,7 +150,7 @@ function drawCollection(collection) {
       for (var j = 0; j < -row; j++) {
         var blankRow = [];
         for (var i = 0; i < drawing[0].length; i++) {
-          blankRow.push('&nbsp;');
+          blankRow.push(' ');
         }
         drawing.unshift(blankRow);
       }
@@ -161,7 +162,7 @@ function drawCollection(collection) {
       var diff = col - drawing[0].length + 4;
       for (var j = 0; j < drawing.length; j++) {
         for (var i = 0; i < diff; i++) {
-          drawing[j].push('&nbsp;');
+          drawing[j].push(' ');
           // console.log(i);
         }
       }
@@ -171,26 +172,59 @@ function drawCollection(collection) {
       for (var j = 0; j < diff; j++) {
         var blankRow = [];
         for (var i = 0; i < drawing[0].length; i++) {
-          blankRow.push('&nbsp;');
+          blankRow.push(' ');
         }
         drawing.push(blankRow);
       }
     }
     // console.log(drawing);
     //Finally, add in the cube:
-    drawing[row][col] = '\\';
-    drawing[row][col + 1] = '/';
-    drawing[row][col + 2] = '_';
-    drawing[row][col + 3] = '/';
-    drawing[row + 1][col] = '/';
-    drawing[row + 1][col + 1] = '\\';
-    drawing[row + 1][col + 2] = '_';
-    drawing[row + 1][col + 3] = '\\';
-    if (drawing[row + 2][col + 2] === '&nbsp;') {
-      drawing[row + 2][col + 2] = '_';
-    } else if (drawing[row + 2][col + 1] === '&nbsp;') {
-      drawing[row + 2][col + 1] = '_';
+    drawing[row][col] = '\\' + collection[k].formatClass;
+    drawing[row][col + 1] = '/' + collection[k].formatClass;
+    drawing[row][col + 2] = '_' + collection[k].formatClass;
+    drawing[row][col + 3] = '/' + collection[k].formatClass;
+    drawing[row + 1][col] = '/' + collection[k].formatClass;
+    drawing[row + 1][col + 1] = '\\' + collection[k].formatClass;
+    drawing[row + 1][col + 2] = '_' + collection[k].formatClass;
+    drawing[row + 1][col + 3] = '\\' + collection[k].formatClass;
+    if (drawing[row + 2][col + 2] === ' ') {
+      drawing[row + 2][col + 2] = '_' + collection[k].formatClass;
+    } else if (drawing[row + 2][col + 1] === ' ') {
+      drawing[row + 2][col + 1] = '_' + collection[k].formatClass;
     }
   }
-  return drawing.reverse().join('<br>').split(',').join('');
+  return drawing.reverse();
+}
+
+function drawCollection(collection) {
+  var characters = flattenCollection(collection);
+  var newHTML = [];
+  var currentFormat = '';
+  for (var j = 0; j < characters.length; j++) {
+    var newLine = '';
+    for (var i = 0; i < characters[j].length; i++) {
+      var char = characters[j][i];
+      if (char === ' ') {
+        newLine += '&nbsp;';
+      } else if (char.length > 1) {
+        var newFormat = char.substring(1, char.length);
+        if (currentFormat) {
+          newLine += '</span>';
+        }
+        if (currentFormat !== newFormat) {
+          newLine += '<span class="' + newFormat + '">';
+        }
+        currentFormat = newFormat;
+        newLine += char[0];
+      } else {
+        newLine += char[0];
+      }
+    }
+    if (currentFormat) {
+      newLine += '</span>';
+      currentFormat = '';
+    }
+    newHTML.push(newLine);
+  }
+  return newHTML.join('<br>');
 }

@@ -4,6 +4,7 @@ function addCubes(collection, newCubes) {
     var index = 0;
     while(newCubes[k].greaterThan(collection[index])) {
       index++;
+      console.log(index);
     }
     for (var i = collection.length; i > index; i--) {
       // Shift cubes over:
@@ -11,6 +12,7 @@ function addCubes(collection, newCubes) {
     }
     newCollection[index] = newCubes[k];
   }
+  return newCollection;
 }
 
 function newCube(x, y, z) {
@@ -24,7 +26,7 @@ function newCube(x, y, z) {
       }
       if (this.x > cube.x) {
         return true;
-      } else if (this.y < cube.y) {
+      } else if (this.y > cube.y) {
         return true;
       } else if (this.z > cube.z) {
         return true;
@@ -100,14 +102,11 @@ function newCube(x, y, z) {
 function drawCollection(collection) {
   var offset = [0,0];
   var drawing = [[]];
-  console.log(drawing);
+  // console.log(drawing);
   for (var k = 0; k < collection.length; k++) {
-    var k = 0;
     var nextCube = collection[k].projection();
     var col = nextCube.col + offset[0];
     var row = nextCube.row + offset[1];
-    var row = 0;
-    var col = 0;
     // Set offsets so that row and column are positive:
     if (col < 0) {
       for (var j = 0; j < drawing.length; j++) {
@@ -120,11 +119,11 @@ function drawCollection(collection) {
     }
     // Set offsets so that row and column are positive:
     if (row < 0) {
-      var blankRow = [];
-      for (var i = 0; i < drawing[0].length; i++) {
-        blankRow.push('&nbsp;');
-      }
       for (var j = 0; j <= -row; j++) {
+        var blankRow = [];
+        for (var i = 0; i < drawing[0].length; i++) {
+          blankRow.push('&nbsp;');
+        }
         drawing.unshift(blankRow);
       }
       offset[1] -= row;
@@ -142,29 +141,29 @@ function drawCollection(collection) {
     }
     if (row >= drawing.length - 3) {
       var diff = row - drawing.length + 3;
-      var blankRow = [];
-      for (var i = 0; i < drawing[0].length; i++) {
-        blankRow.push('&nbsp;');
-      }
       for (var j = 0; j < diff; j++) {
+        var blankRow = [];
+        for (var i = 0; i < drawing[0].length; i++) {
+          blankRow.push('&nbsp;');
+        }
         drawing.push(blankRow);
       }
     }
-    console.log(drawing);
-    // Finally, add in the cube:
-    // drawing[row][col] = '\\';
-    // drawing[row][col + 1] = '/';
-    // drawing[row][col + 2] = '_';
-    // drawing[row][col + 3] = '/';
-    drawing[2][3] = 'a';
-    // drawing[row + 1][col + 1] = '\\';
-    // drawing[row + 1][col + 2] = '_';
-    // drawing[row + 1][col + 3] = '\\';
-    // if (drawing[col + 2][row + 2] === '&nbsp;') {
-    //   drawing[col + 2][row + 2] = '_';
-    // } else if (drawing[col + 2][row + 1] === '&nbsp;') {
-    //   drawing[col + 2][row + 1] = '_';
-    // }
+    // console.log(drawing);
+    //Finally, add in the cube:
+    drawing[row][col] = '\\';
+    drawing[row][col + 1] = '/';
+    drawing[row][col + 2] = '_';
+    drawing[row][col + 3] = '/';
+    drawing[row + 1][col] = '/';
+    drawing[row + 1][col + 1] = '\\';
+    drawing[row + 1][col + 2] = '_';
+    drawing[row + 1][col + 3] = '\\';
+    if (drawing[row + 2][col + 2] === '&nbsp;') {
+      drawing[row + 2][col + 2] = '_';
+    } else if (drawing[row + 2][col + 1] === '&nbsp;') {
+      drawing[row + 2][col + 1] = '_';
+    }
   }
   return drawing.reverse().join('<br>').split(',').join('');
 }

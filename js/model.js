@@ -43,11 +43,20 @@ function newCollection(cubes) {
 }
 
 function newCube(x, y, z) {
+  var type = Math.random() * 3;
+
+  if (type > 2) {
+    type = 'type3';
+  } else if (type > 1) {
+    type = 'type2';
+  } else {
+    type = 'type1';
+  }
   return {
     x: x,
     y: y,
     z: z,
-    formatClass: 'red',
+    formatClass: type,
     greaterThan: function(cube) {
       if(!cube) {
         return false;
@@ -209,9 +218,10 @@ function drawCollection(collection) {
       } else if (char.length > 1) {
         var newFormat = char.substring(1, char.length);
         if (currentFormat) {
-          newLine += '</span>';
-        }
-        if (currentFormat !== newFormat) {
+          if (currentFormat !== newFormat) {
+            newLine += '</span><span class="' + newFormat + '">';
+          }
+        } else {
           newLine += '<span class="' + newFormat + '">';
         }
         currentFormat = newFormat;

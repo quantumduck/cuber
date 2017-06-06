@@ -39,52 +39,16 @@ body {
   background-color: #FFF;
 }
 
-.top-left {
-  cursor: nw-resize;
+.type1 {
+  color: red;
 }
 
-.top-right {
-  cursor: ne-resize;
+.type2 {
+  color: green;
 }
 
-.bottom-left {
-  cursor: sw-resize;
-}
-
-.bottom-right {
-  cursor: se-resize;
-}
-
-.top-edge {
-  cursor: n-resize;
-}
-
-.bottom-edge {
-  cursor: s-resize;
-}
-
-.left-edge {
-  cursor: w-resize;
-}
-
-.right-edge {
-  cursor: e-resize;
-}
-
-.unselected {
-  background-color: #dddddd;
-}
-
-.selected {
-  background-color: #ddddff;
-}
-
-.cursor-overwrite {
-  background-color: #ffbbbb;
-}
-
-.cursor {
-  background-color: #bbffbb;
+.type3 {
+  color: blue;
 }
 
 button {

@@ -42,16 +42,7 @@ function newCollection(cubes) {
   return collection;
 }
 
-function newCube(x, y, z) {
-  var type = Math.random() * 3;
-
-  if (type > 2) {
-    type = 'type3';
-  } else if (type > 1) {
-    type = 'type2';
-  } else {
-    type = 'type1';
-  }
+function newCube(x, y, z, type) {
   return {
     x: x,
     y: y,

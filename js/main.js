@@ -9,11 +9,19 @@ $(function() {
 
   $(window).on('keydown', function(e) {
     var cubesToDraw = newCollection(window.allCubes);
+    var type = Math.random() * 3;
+    if (type > 2) {
+      type = 'type3';
+    } else if (type > 1) {
+      type = 'type2';
+    } else {
+      type = 'type1';
+    }
     // Parsing the keyboard
     // window.allCubes.deleteCube(window.cursorCube);
     switch (e.key) {
       case 's':
-        window.allCubes.addCube(newCube(window.cursorCube.x, window.cursorCube.y, window.cursorCube.z));
+        window.allCubes.addCube(newCube(window.cursorCube.x, window.cursorCube.y, window.cursorCube.z, type));
         console.log('(' + window.cursorCube.x + ', ' + window.cursorCube.y + ', ' + window.cursorCube.z + ')');
         console.log('(' + window.cursorCube.projection().col + ', ' +  window.cursorCube.projection().row + ')');
         cubesToDraw.addCube(window.cursorCube);

@@ -2,6 +2,8 @@ window.allCubes = [];
 window.cursorCube = newCube(0,0,0);
 
 $(function() {
+  window.allCubes.push(cursorCube);
+  $('#drawing-area').html(drawCollection(window.allCubes));
 
   // $('#drawing-area').on('click', function(e) {
   //   e.stopPropagation();
@@ -28,34 +30,34 @@ $(function() {
 
   $(window).on('keydown', function(e) {
     // Parsing the keyboard
-    window.allCubes.pop();
+    // window.allCubes.pop();
     console.log(e.key);
-    switch (e.key) {
-      case 's':
-        window.allCubes = addCubes(window.allCubes, [window.cursorCube]);
-        window.cursorCube = newCube(0,0,0);
-        break;
-      case 'a':
-        cursorCube.z--;
-        break;
-      case 'w':
-        cursorCube.z++;
-        break;
-      case 'e':
-        cursorCube.x--;
-        break;
-      case 'd':
-        cursorCube.x++;
-        break;
-      case 'z':
-        cursorCube.y--;
-        break;
-      case 'x':
-        cursorCube.y++;
-        break;
-    }
-    window.allCubes.push(cursorCube);
-    $('#drawing-area').html(drawCollection())
+    // switch (e.key) {
+    //   case 's':
+    //     window.allCubes = addCubes(window.allCubes, [window.cursorCube]);
+    //     window.cursorCube = newCube(0,0,0);
+    //     break;
+    //   case 'a':
+    //     cursorCube.z--;
+    //     break;
+    //   case 'w':
+    //     cursorCube.z++;
+    //     break;
+    //   case 'e':
+    //     cursorCube.x--;
+    //     break;
+    //   case 'd':
+    //     cursorCube.x++;
+    //     break;
+    //   case 'z':
+    //     cursorCube.y--;
+    //     break;
+    //   case 'x':
+    //     cursorCube.y++;
+    //     break;
+    // }
+    // window.allCubes.push(cursorCube);
+    // $('#drawing-area').html(drawCollection(window.allCubes));
 
   });
 });

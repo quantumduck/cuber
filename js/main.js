@@ -40,6 +40,12 @@ $(function() {
     }
     cubesToDraw.addCube(window.cursorCube);
     $('#drawing-area').html(drawCollection(cubesToDraw));
+    $('#message-box').html(
+      "Current Position (" +
+      window.cursorCube.x + ", " +
+      window.cursorCube.y + ", " +
+      window.cursorCube.z + ")"
+    )
 
   });
 });

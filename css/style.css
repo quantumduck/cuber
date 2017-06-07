@@ -41,16 +41,32 @@ body {
   background-color: #FFF;
 }
 
-.type1 {
-  color: red;
+.O-tetronimo {
+  color: #FF0000;
 }
 
-.type2 {
-  color: green;
+.L-tetronimo {
+  color: #FFFF00;
 }
 
-.type3 {
-  color: blue;
+.Z-tetronimo {
+  color: orange;
+}
+
+.T-tetronimo {
+  color: #0000FF;
+}
+
+.tripod-tetronimo {
+  color: #00FF00;
+}
+
+.weird-tetronimo-1 {
+  color: #00FFFF;
+}
+
+.weird-tetronimo-2 {
+  color: #FF00FF;
 }
 
 button {

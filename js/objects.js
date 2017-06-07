@@ -12,24 +12,13 @@ function newITet(x, y, z, orientation) {
 
 function newLTet(x, y, z, orientation) {
   var type = "L-tetronimo";
-  var piece =  newCollection([
+  var tetronimo =  newCollection([
     newCube(x, y, z, type),
     newCube(x, y, z + 1, type),
     newCube(x, y, z + 2, type),
     newCube(x + 1, y, z, type)
   ]);
-  piece.setOrientation = function(number) {
-    switch(number % 3) {
-      case 1:
-        piece.rotate(point, 'z');
-        break;
-      case 2:
-        piece.rotate(point, 'z').rotate(point, 'z');
-        break;
-      case 3:
-        piece.rotate(point, 'z')
-    }
-  };
+  return tetronimo;
 }
 
 function newOTet(x, y, z, orientation) {
@@ -176,4 +165,5 @@ function newRandomTet() {
       tetro.rotate(tetro[0], '-y');
       break;
   }
+  return newCollection(tetro);
 }

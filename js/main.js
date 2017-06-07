@@ -7,7 +7,7 @@ if (window.type > 2) {
   window.type = 'type1';
 }
 window.cursorCube = newCube(0,0,0, window.type);
-window.allCubes = newCollection([window.cursorCube]);
+window.allCubes = newRandomTet();
 
 $(function() {
   $('#drawing-area').html(drawCollection(window.allCubes));

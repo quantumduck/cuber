@@ -1,78 +1,82 @@
-window.type = Math.random() * 3;
-if (window.type > 2) {
-  window.type = 'type3';
-} else if (window.type > 1) {
-  window.type = 'type2';
-} else {
-  window.type = 'type1';
-}
-window.cursorCube = newCube(0,0,0, window.type);
-window.allCubes = newRandomTet();
+window.cursorCube = newRandomTet();
+window.allCubes = newCollection([]);
 for (var i = 0; i < 10; i++) {
-  window.allCubes.addCube(newCube(-1,i,-1,''));
-  window.allCubes.addCube(newCube(i,10,-1,''));
-  window.allCubes.addCube(newCube(-1,10,i,''));
+  window.allCubes.addCube(newCube(-1,i,-1,'bg'));
+  window.allCubes.addCube(newCube(i,10,-1,'bg'));
+  window.allCubes.addCube(newCube(-1,10,i,'bg'));
   for (var j = 0; j < 10; j++) {
-    window.allCubes.addCube(newCube(i,j,-1,''));
-    window.allCubes.addCube(newCube(-1,i,j,''));
-    window.allCubes.addCube(newCube(i,10,j,''));
+    window.allCubes.addCube(newCube(i,j,-1,'bg'));
+    window.allCubes.addCube(newCube(-1,i,j,'bg'));
+    window.allCubes.addCube(newCube(i,10,j,'bg'));
   }
 }
+window.rotateMode = false;
 
 $(function() {
   $('#drawing-area').html(drawCollection(window.allCubes));
 
-
-
-
   $(window).on('keydown', function(e) {
     var cubesToDraw = newCollection(window.allCubes);
-    var type = Math.random() * 3;
-
     // Parsing the keyboard
     // window.allCubes.deleteCube(window.cursorCube);
     switch (e.key) {
       case 's':
-        window.allCubes.addCube(newCube(window.cursorCube.x, window.cursorCube.y, window.cursorCube.z, window.type));
-        console.log('(' + window.cursorCube.x + ', ' + window.cursorCube.y + ', ' + window.cursorCube.z + ')');
-        console.log('(' + window.cursorCube.projection().col + ', ' +  window.cursorCube.projection().row + ')');
+        window.allCubes.addCubes(window.cursorCube);
+        window.cursorCube = newRandomTet();
         cubesToDraw.addCube(window.cursorCube);
-        window.type = Math.random() * 3;
-        if (window.type > 2) {
-          window.type = 'type3';
-        } else if (window.type > 1) {
-          window.type = 'type2';
-        } else {
-          window.type = 'type1';
-        }
-        window.cursorCube = newCube(0,0,0, window.type);
         break;
       case 'a':
-        window.cursorCube.y--;
+        if (window.rotateMode) {
+          window.cursorCube = rotateCollection(window.cursorCube, '-z');
+        } else {
+          window.cursorCube.moveRelative(0,-1,0);
+        }
         break;
       case 'w':
-        window.cursorCube.x--;
+        if (window.rotateMode) {
+          window.cursorCube = rotateCollection(window.cursorCube, '-y');
+        } else {
+          window.cursorCube.moveRelative(-1,0,0);
+        }
         break;
       case 'e':
-        window.cursorCube.z++;
+        if (window.rotateMode) {
+          window.cursorCube = rotateCollection(window.cursorCube, '-x');
+        } else {
+          window.cursorCube.moveRelative(0,0,1);
+        }
         break;
       case 'd':
-        window.cursorCube.y++;
+        if (window.rotateMode) {
+          window.cursorCube = rotateCollection(window.cursorCube, 'z');
+        } else {
+          window.cursorCube.moveRelative(0,1,0);
+        }
         break;
       case 'z':
-        window.cursorCube.z--;
+        if (window.rotateMode) {
+          window.cursorCube = rotateCollection(window.cursorCube, 'x');
+        } else {
+          window.cursorCube.moveRelative(0,0,-1);
+        }
         break;
       case 'x':
-        window.cursorCube.x++;
+        if (window.rotateMode) {
+          window.cursorCube = rotateCollection(window.cursorCube, 'y');
+        } else {
+          window.cursorCube.moveRelative(1,0,0);
+        }
         break;
+      case 'r':
+        window.rotateMode = !window.rotateMode;
     }
-    cubesToDraw.addCube(window.cursorCube);
+    cubesToDraw.addCubes(window.cursorCube);
     $('#drawing-area').html(drawCollection(cubesToDraw));
     $('#message-box').html(
       "Current Position (" +
-      window.cursorCube.x + ", " +
-      window.cursorCube.y + ", " +
-      window.cursorCube.z + ")"
+      window.cursorCube[0].x + ", " +
+      window.cursorCube[0].y + ", " +
+      window.cursorCube[0].z + ")"
     )
 
   });

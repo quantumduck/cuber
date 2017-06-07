@@ -40,6 +40,10 @@ body {
 #drawing-container::selection {
 }
 
+.bg {
+  color: gray;
+}
+
 .I-tetronimo {
   color: white;
 }

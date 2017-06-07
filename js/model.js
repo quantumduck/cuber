@@ -47,7 +47,7 @@ function newCollection(cubes) {
     switch(axis) {
       case 'x':
       for (var i = 0; i < this.length; i++) {
-
+        
       }
     }
   }

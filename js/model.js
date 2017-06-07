@@ -46,11 +46,23 @@ function newCollection(cubes) {
     }
     switch(axis) {
       case 'x':
-      for (var i = 0; i < this.length; i++) {
-        
-      }
+        for (var i = 0; i < this.length; i++) {
+          this[i].rotateX(point, clockwise);
+        }
+        break;
+      case 'y':
+        for (var i = 0; i < this.length; i++) {
+          this[i].rotateY(point, clockwise);
+        }
+        break;
+      case 'z':
+        for (var i = 0; i < this.length; i++) {
+          this[i].rotateZ(point, clockwise);
+        }
+        break;
     }
-  }
+    this = newCollection(this); // Reorganize cubes when done rotating.
+  };
   collection.addCubes(cubes);
   return collection;
 }

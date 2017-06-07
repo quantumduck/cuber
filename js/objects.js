@@ -81,34 +81,6 @@ function newWeirdTet2(x, y, z, orientation) {
   ]);
 }
 
-function boundaries(collection) {
-  var xmin = collection[0].x;
-  var xmax = xmin;
-  var ymin = collection[0].y;
-  var ymax = ymin;
-  var zmin = collection[0].z;
-  var zmax = zmin;
-  for (var i = 1; i < collection.length; i++) {
-    var current = collection[i];
-    if (current.x > xmax) {
-      xmax = current.x;
-    } else if (current.x < xmin) {
-      xmin = current.x;
-    }
-    if (current.y > ymax) {
-      ymax = current.y;
-    } else if (current.y < ymin) {
-      ymin = current.y;
-    }
-    if (current.z > zmax) {
-      zmax = current.z;
-    } else if (current.z < zmin) {
-      zmin = current.z;
-    }
-  }
-  return {min: {x: xmin, y: ymin, z: zmin}, max: {x: xmax, y: ymax, z: zmax}};
-}
-
 function newRandomTet() {
   var rand = Math.random() * 24 * 8;
   var type = Math.floor(rand / 24);
@@ -142,28 +114,29 @@ function newRandomTet() {
   }
   switch (orientation / 6) {
     case 1:
-      tetro.rotate(tetro[0], 'z');
+      tetro = rotateCollection(tetro, 'z');
     case 2:
-      tetro.rotate(tetro[0], 'z');
+      tetro = rotateCollection(tetro, 'z');
       break;
     case 3:
-      tetro.rotate(tetro[0], '-z');
+      tetro = rotateCollection(tetro, '-z');
       break;
   }
   switch (orientation % 6) {
     case 1:
-      tetro.rotate(tetro[0], 'x');
+      tetro = rotateCollection(tetro, 'x');
     case 2:
-      tetro.rotate(tetro[0], 'x');
+      tetro = rotateCollection(tetro, 'x');
       break;
     case 3:
-      tetro.rotate(tetro[0], '-x');
+      tetro = rotateCollection(tetro, '-x');
       break;
     case 4:
-      tetro.rotate(tetro[0], 'y');
+      tetro = rotateCollection(tetro, 'y');
+      break;
     case 5:
-      tetro.rotate(tetro[0], '-y');
+      tetro = rotateCollection(tetro, '-y');
       break;
   }
-  return newCollection(tetro);
+  return tetro;
 }

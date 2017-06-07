@@ -61,7 +61,7 @@ function newCollection(cubes) {
         }
         break;
     }
-    this = newCollection(this); // Reorganize cubes when done rotating.
+    //collection = newCollection(this); // Reorganize cubes when done rotating.
   };
   collection.addCubes(cubes);
   return collection;

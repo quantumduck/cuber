@@ -1,28 +1,17 @@
-function newLongPiece(x, y, z, orientation) {
-  var type = "long-piece";
+function newITet(x, y, z, orientation) {
+  var type = "I-tetronimo";
   var point = {x: x, y: y, z: z};
-  var piece =  newCollection([
+  var tetronimo =  newCollection([
     newCube(x, y, z, type),
     newCube(x, y, z + 1, type),
     newCube(x, y, z + 2, type),
     newCube(x, y, z + 3, type)
   ]);
-  piece.setOrientation = function(number) {
-    switch(number % 3) {
-      case 1:
-        piece.rotate(point, 'x');
-        break;
-      case 2:
-        piece.rotate(point, 'y');
-        break;
-    }
-  };
-  piece.setOrientation(orientation);
-  return piece;
+  return tetronimo;
 }
 
-function newLPiece(x, y, z, orientation) {
-  var type = "L-piece";
+function newLTet(x, y, z, orientation) {
+  var type = "L-tetronimo";
   var piece =  newCollection([
     newCube(x, y, z, type),
     newCube(x, y, z + 1, type),
@@ -43,8 +32,8 @@ function newLPiece(x, y, z, orientation) {
   };
 }
 
-function newSquarePiece(x, y, z, orientation) {
-  var type = "square-piece";
+function newOTet(x, y, z, orientation) {
+  var type = "O-tetronimo";
   return newCollection([
     newCube(x, y, z, type),
     newCube(x, y, z + 1, type),
@@ -53,8 +42,8 @@ function newSquarePiece(x, y, z, orientation) {
   ]);
 }
 
-function newTPiece(x, y, z, orientation) {
-  var type = "T-piece";
+function newTTet(x, y, z, orientation) {
+  var type = "T-tetronimo";
   return newCollection([
     newCube(x, y, z, type),
     newCube(x, y, z + 1, type),
@@ -63,8 +52,8 @@ function newTPiece(x, y, z, orientation) {
   ]);
 }
 
-function newZigZagPiece(x, y, z, orientation) {
-  var type = "zigzag-piece";
+function newZTet(x, y, z, orientation) {
+  var type = "Z-tetronimo";
   return newCollection([
     newCube(x, y, z, type),
     newCube(x, y, z + 1, type),
@@ -73,8 +62,8 @@ function newZigZagPiece(x, y, z, orientation) {
   ]);
 }
 
-function newTripodPiece(x, y, z, orientation) {
-  var type = "tripod-piece";
+function newTriTet(x, y, z, orientation) {
+  var type = "tripod-tetronimo";
   return newCollection([
     newCube(x, y, z, type),
     newCube(x, y, z + 1, type),
@@ -83,8 +72,8 @@ function newTripodPiece(x, y, z, orientation) {
   ]);
 }
 
-function newWeirdPiece1(x, y, z, orientation) {
-  var type = "weird-piece-1";
+function newWeirdTet1(x, y, z, orientation) {
+  var type = "weird-tetronimo-1";
   return newCollection([
     newCube(x, y, z, type),
     newCube(x, y + 1, z, type),
@@ -93,8 +82,8 @@ function newWeirdPiece1(x, y, z, orientation) {
   ]);
 }
 
-function newWeirdPiece2(x, y, z, orientation) {
-  var type = "weird-piece-2";
+function newWeirdTet2(x, y, z, orientation) {
+  var type = "weird-tetronimo-2";
   return newCollection([
     newCube(x, y, z, type),
     newCube(x, y + 1, z, type),
@@ -110,5 +99,81 @@ function boundaries(collection) {
   var ymax = ymin;
   var zmin = collection[0].z;
   var zmax = zmin;
-  
+  for (var i = 1; i < collection.length; i++) {
+    var current = collection[i];
+    if (current.x > xmax) {
+      xmax = current.x;
+    } else if (current.x < xmin) {
+      xmin = current.x;
+    }
+    if (current.y > ymax) {
+      ymax = current.y;
+    } else if (current.y < ymin) {
+      ymin = current.y;
+    }
+    if (current.z > zmax) {
+      zmax = current.z;
+    } else if (current.z < zmin) {
+      zmin = current.z;
+    }
+  }
+  return {min: {x: xmin, y: ymin, z: zmin}, max: {x: xmax, y: ymax, z: zmax}};
+}
+
+function newRandomTet() {
+  var rand = Math.random() * 24 * 8;
+  var type = Math.floor(rand / 24);
+  var orientation = Math.floor(rand % 24);
+  var tetro;
+  switch (type) {
+    case 0:
+      tetro = newITet(0,0,20);
+      break;
+    case 1:
+      tetro = newLTet(0,0,20);
+      break;
+    case 2:
+      tetro = newOTet(0,0,20);
+      break;
+    case 3:
+      tetro = newTTet(0,0,20);
+      break;
+    case 4:
+      tetro = newZTet(0,0,20);
+      break;
+    case 5:
+      tetro = newTriTet(0,0,20);
+      break;
+    case 6:
+      tetro = newWeirdTet1(0,0,20);
+      break;
+    case 7:
+      tetro = newWeirdTet2(0,0,20);
+      break;
+  }
+  switch (orientation / 6) {
+    case 1:
+      tetro.rotate(tetro[0], 'z');
+    case 2:
+      tetro.rotate(tetro[0], 'z');
+      break;
+    case 3:
+      tetro.rotate(tetro[0], '-z');
+      break;
+  }
+  switch (orientation % 6) {
+    case 1:
+      tetro.rotate(tetro[0], 'x');
+    case 2:
+      tetro.rotate(tetro[0], 'x');
+      break;
+    case 3:
+      tetro.rotate(tetro[0], '-x');
+      break;
+    case 4:
+      tetro.rotate(tetro[0], 'y');
+    case 5:
+      tetro.rotate(tetro[0], '-y');
+      break;
+  }
 }

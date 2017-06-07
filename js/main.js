@@ -8,6 +8,16 @@ if (window.type > 2) {
 }
 window.cursorCube = newCube(0,0,0, window.type);
 window.allCubes = newRandomTet();
+for (var i = 0; i < 10; i++) {
+  window.allCubes.addCube(newCube(-1,i,-1,''));
+  window.allCubes.addCube(newCube(i,10,-1,''));
+  window.allCubes.addCube(newCube(-1,10,i,''));
+  for (var j = 0; j < 10; j++) {
+    window.allCubes.addCube(newCube(i,j,-1,''));
+    window.allCubes.addCube(newCube(-1,i,j,''));
+    window.allCubes.addCube(newCube(i,10,j,''));
+  }
+}
 
 $(function() {
   $('#drawing-area').html(drawCollection(window.allCubes));

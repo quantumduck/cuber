@@ -1,4 +1,4 @@
-window.cursorCube = newRandomTet();
+window.activeTet = newRandomTet();
 window.allCubes = newCollection([]);
 for (var i = 0; i < 10; i++) {
   window.allCubes.addCube(newCube(-1,i,-1,'bg'));
@@ -18,65 +18,65 @@ $(function() {
   $(window).on('keydown', function(e) {
     var cubesToDraw = newCollection(window.allCubes);
     // Parsing the keyboard
-    // window.allCubes.deleteCube(window.cursorCube);
+    // window.allCubes.deleteCube(window.activeTet);
     switch (e.key) {
       case 's':
-        window.allCubes.addCubes(window.cursorCube);
-        window.cursorCube = newRandomTet();
-        cubesToDraw.addCube(window.cursorCube);
+        window.allCubes.addCubes(window.activeTet);
+        cubesToDraw = newCollection(window.allCubes);
+        window.activeTet = newRandomTet();
         break;
       case 'a':
         if (window.rotateMode) {
-          window.cursorCube = rotateCollection(window.cursorCube, '-z');
+          window.activeTet = rotateCollection(window.activeTet, '-z');
         } else {
-          window.cursorCube.moveRelative(0,-1,0);
+          window.activeTet.moveRelative(0,-1,0);
         }
         break;
       case 'w':
         if (window.rotateMode) {
-          window.cursorCube = rotateCollection(window.cursorCube, '-y');
+          window.activeTet = rotateCollection(window.activeTet, '-y');
         } else {
-          window.cursorCube.moveRelative(-1,0,0);
+          window.activeTet.moveRelative(-1,0,0);
         }
         break;
       case 'e':
         if (window.rotateMode) {
-          window.cursorCube = rotateCollection(window.cursorCube, '-x');
+          window.activeTet = rotateCollection(window.activeTet, '-x');
         } else {
-          window.cursorCube.moveRelative(0,0,1);
+          window.activeTet.moveRelative(0,0,1);
         }
         break;
       case 'd':
         if (window.rotateMode) {
-          window.cursorCube = rotateCollection(window.cursorCube, 'z');
+          window.activeTet = rotateCollection(window.activeTet, 'z');
         } else {
-          window.cursorCube.moveRelative(0,1,0);
+          window.activeTet.moveRelative(0,1,0);
         }
         break;
       case 'z':
         if (window.rotateMode) {
-          window.cursorCube = rotateCollection(window.cursorCube, 'x');
+          window.activeTet = rotateCollection(window.activeTet, 'x');
         } else {
-          window.cursorCube.moveRelative(0,0,-1);
+          window.activeTet.moveRelative(0,0,-1);
         }
         break;
       case 'x':
         if (window.rotateMode) {
-          window.cursorCube = rotateCollection(window.cursorCube, 'y');
+          window.activeTet = rotateCollection(window.activeTet, 'y');
         } else {
-          window.cursorCube.moveRelative(1,0,0);
+          window.activeTet.moveRelative(1,0,0);
         }
         break;
       case 'r':
         window.rotateMode = !window.rotateMode;
     }
-    cubesToDraw.addCubes(window.cursorCube);
+    cubesToDraw.addCubes(window.activeTet);
     $('#drawing-area').html(drawCollection(cubesToDraw));
     $('#message-box').html(
       "Current Position (" +
-      window.cursorCube[0].x + ", " +
-      window.cursorCube[0].y + ", " +
-      window.cursorCube[0].z + ")"
+      boundaries(window.activeTet).min.x + ", " +
+      boundaries(window.activeTet).min.y + ", " +
+      boundaries(window.activeTet).min.z + ")"
     )
 
   });

@@ -59,9 +59,9 @@ function rotateCollection(collection, axis) {
         collection[i].rotateZ(bounds.min, clockwise);
       }
       if (clockwise) {
-        collection.moveRelative(bounds.max.y - bounds.min.y,0,0);
-      } else {
         collection.moveRelative(0,bounds.max.x - bounds.min.x,0);
+      } else {
+        collection.moveRelative(bounds.max.y - bounds.min.y,0,0);
       }
       break;
   }

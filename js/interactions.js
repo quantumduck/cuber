@@ -146,6 +146,39 @@ function CompletedLayers(collection, length, width, height) {
   return layers;
 }
 
-function RemoveLayers(collection, layers) {
+function removeLayers(collection, minimum) {
+  var bounds = boundaries(collection);
+  var all_layers = [];
+  var full_layer = (
+      (bounds.max.x - bounds.min.x + 1) *
+      (bounds.max.y - bounds.min.y + 1)
+  );
+  var zShift = 0;
 
+  if (!minimum) {
+    minimum = 0;
+  }
+  for (var i = bounds.min.z; i < bounds.max.z; i++) {
+    console.log(i)
+    var lastCube = newCube(-1, 10, i + 1);
+    var layer = newCollection([]);
+
+    while (lastCube.greaterThan(collection[0])) {
+      console.log(collection[0])
+      layer.addCube(collection[0]);
+      collection.deleteCube(collection[0]);
+    }
+    all_layers.push(layer);
+  }
+  all_layers.push(collection);
+  for (var i = 0; i < all_layers.length; i++) {
+    if (i < minimum) {
+      collection.addCubes(all_layers[i]);
+    } else if (all_layers[i].length === full_layer) {
+      zShift++;
+    } else {
+      collection.addCubes(all_layers[i].moveRelative(0,0,-zShift));
+    }
+  }
+  return zShift;
 }

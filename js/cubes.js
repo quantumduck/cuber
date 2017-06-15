@@ -8,7 +8,7 @@ function newCollection(cubes) {
       index++;
     }
     return this[index].equals(cube);
-  }
+  };
   collection.addCube = function(cube) {
     var index = 0;
     while(cube.greaterThan(this[index])) {

@@ -41,16 +41,16 @@ function drawNow() {
 $(function() {
   drawNow();
 
-  setInterval(function() {
-    // Move active piece down, if possible:
-    if (!safeMove(window.activeTet, 0, 0, -1, window.bounds, window.allCubes)) {
-      // If it doesn't move, freeze it in place:
-      window.allCubes.addCubes(window.activeTet);
-      cubesToDraw = newCollection(window.allCubes);
-      window.activeTet = newRandomTet();
-    }
-    drawNow();
-  }, 1000);
+  // setInterval(function() {
+  //   // Move active piece down, if possible:
+  //   if (!safeMove(window.activeTet, 0, 0, -1, window.bounds, window.allCubes)) {
+  //     // If it doesn't move, freeze it in place:
+  //     window.allCubes.addCubes(window.activeTet);
+  //     cubesToDraw = newCollection(window.allCubes);
+  //     window.activeTet = newRandomTet();
+  //   }
+  //   drawNow();
+  // }, 1000);
 
   $(window).on('keydown', function(e) {
     console.log(e.key);

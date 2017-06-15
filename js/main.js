@@ -1,4 +1,16 @@
 window.activeTet = newRandomTet(); // Current tetris piece
+window.bounds = {
+  max: {
+    x: 9,
+    y: 9,
+    z: 30
+  },
+  min: {
+    x: 0,
+    y: 0,
+    z: 0
+  }
+}
 window.allCubes = newCollection([]); // Collection of all cube objects to be
                                     // displayed.
 // Adding background cubes:
@@ -48,23 +60,23 @@ $(function() {
       case 'x':
           window.activeTet = safeRotate(window.allCubes, window.activeTet, 'y');
         break;
-      case 'r':
-        safeMove(window.allCubes, window.activeTet, 0, 0, -1);
+      case 'PageDown':
+        safeMove(window.activeTet, 0, 0, -1, window.bounds, window.allCubes);
         break;
-      case 'q':
-        safeMove(window.allCubes, window.activeTet, 0, 0, 1);
+      case 'PageUp':
+        safeMove(window.activeTet, 0, 0, 1, window.bounds, window.allCubes);
         break;
       case 'ArrowLeft':
-        safeMove(window.allCubes, window.activeTet, 0, -1, 0);
+        safeMove(window.activeTet, 0, -1, 0, window.bounds, window.allCubes);
         break;
       case 'ArrowRight':
-        safeMove(window.allCubes, window.activeTet, 0, 1, 0);
+        safeMove(window.activeTet, 0, 1, 0, window.bounds, window.allCubes);
         break;
       case 'ArrowUp':
-        safeMove(window.allCubes, window.activeTet, -1, 0, 0);
+        safeMove(window.activeTet, -1, 0, 0, window.bounds, window.allCubes);
         break;
       case 'ArrowDown':
-        safeMove(window.allCubes, window.activeTet, 1, 0, 0);
+        safeMove(window.activeTet, 1, 0, 0, window.bounds, window.allCubes);
         break;
     }
     cubesToDraw.addCubes(window.activeTet);

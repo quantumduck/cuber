@@ -26,22 +26,36 @@ for (var i = 0; i < 10; i++) {
 }
 window.rotateMode = false; // flag for turning on/off rotations
 
+function drawNow() {
+  var cubesToDraw = newCollection(window.allCubes);
+  cubesToDraw.addCubes(window.activeTet);
+  $('#drawing-area').html(drawCollection(cubesToDraw));
+  $('#message-box').html(
+    "Current Position (" +
+    boundaries(window.activeTet).min.x + ", " +
+    boundaries(window.activeTet).min.y + ", " +
+    boundaries(window.activeTet).min.z + ")"
+  );
+}
+
 $(function() {
-  var startingCubes = newCollection(window.allCubes);
-  startingCubes.addCubes(window.activeTet);
-  $('#drawing-area').html(drawCollection(startingCubes));
+  drawNow();
+
+  setInterval(function() {
+    // Move active piece down, if possible:
+    if (!safeMove(window.activeTet, 0, 0, -1, window.bounds, window.allCubes)) {
+      // If it doesn't move, freeze it in place:
+      window.allCubes.addCubes(window.activeTet);
+      cubesToDraw = newCollection(window.allCubes);
+      window.activeTet = newRandomTet();
+    }
+    drawNow();
+  }, 1000);
 
   $(window).on('keydown', function(e) {
     console.log(e.key);
-    var cubesToDraw = newCollection(window.allCubes);
     // Parsing the keyboard
-    // window.allCubes.deleteCube(window.activeTet);
     switch (e.key) {
-      case 's':
-        window.allCubes.addCubes(window.activeTet);
-        cubesToDraw = newCollection(window.allCubes);
-        window.activeTet = newRandomTet();
-        break;
       case 'a':
         window.activeTet = safeRotate(window.allCubes, window.activeTet, '-z');
         break;
@@ -78,15 +92,14 @@ $(function() {
       case 'ArrowDown':
         safeMove(window.activeTet, 1, 0, 0, window.bounds, window.allCubes);
         break;
+      case 'End':
+        while(safeMove(window.activeTet, 0, 0, -1, window.bounds, window.allCubes)) {
+        }
+        window.allCubes.addCubes(window.activeTet);
+        cubesToDraw = newCollection(window.allCubes);
+        window.activeTet = newRandomTet();
+        break;
     }
-    cubesToDraw.addCubes(window.activeTet);
-    $('#drawing-area').html(drawCollection(cubesToDraw));
-    $('#message-box').html(
-      "Current Position (" +
-      boundaries(window.activeTet).min.x + ", " +
-      boundaries(window.activeTet).min.y + ", " +
-      boundaries(window.activeTet).min.z + ")"
-    )
-
+    drawNow();
   });
 });

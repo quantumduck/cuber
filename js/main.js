@@ -1,5 +1,7 @@
-window.activeTet = newRandomTet();
-window.allCubes = newCollection([]);
+window.activeTet = newRandomTet(); // Current tetris piece
+window.allCubes = newCollection([]); // Collection of all cube objects to be
+                                    // displayed.
+// Adding background cubes:
 for (var i = 0; i < 10; i++) {
   window.allCubes.addCube(newCube(-1,i,-1,'bg'));
   window.allCubes.addCube(newCube(i,10,-1,'bg'));
@@ -10,7 +12,7 @@ for (var i = 0; i < 10; i++) {
     window.allCubes.addCube(newCube(i,10,j,'bg'));
   }
 }
-window.rotateMode = false;
+window.rotateMode = false; // flag for turning on/off rotations
 
 $(function() {
   $('#drawing-area').html(drawCollection(window.allCubes));

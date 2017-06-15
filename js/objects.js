@@ -88,28 +88,28 @@ function newRandomTet() {
   var tetro;
   switch (type) {
     case 0:
-      tetro = newITet(0,0,20);
+      tetro = newITet(4,4,20);
       break;
     case 1:
-      tetro = newLTet(0,0,20);
+      tetro = newLTet(4,4,20);
       break;
     case 2:
-      tetro = newOTet(0,0,20);
+      tetro = newOTet(4,4,20);
       break;
     case 3:
-      tetro = newTTet(0,0,20);
+      tetro = newTTet(4,4,20);
       break;
     case 4:
-      tetro = newZTet(0,0,20);
+      tetro = newZTet(4,4,20);
       break;
     case 5:
-      tetro = newTriTet(0,0,20);
+      tetro = newTriTet(4,4,20);
       break;
     case 6:
-      tetro = newWeirdTet1(0,0,20);
+      tetro = newWeirdTet1(4,4,20);
       break;
     case 7:
-      tetro = newWeirdTet2(0,0,20);
+      tetro = newWeirdTet2(4,4,20);
       break;
   }
   switch (orientation / 6) {

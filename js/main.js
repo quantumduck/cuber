@@ -18,6 +18,7 @@ $(function() {
   $('#drawing-area').html(drawCollection(window.allCubes));
 
   $(window).on('keydown', function(e) {
+    console.log(e.key);
     var cubesToDraw = newCollection(window.allCubes);
     // Parsing the keyboard
     // window.allCubes.deleteCube(window.activeTet);
@@ -28,49 +29,41 @@ $(function() {
         window.activeTet = newRandomTet();
         break;
       case 'a':
-        if (window.rotateMode) {
-          window.activeTet = rotateCollection(window.activeTet, '-z');
-        } else {
-          window.activeTet.moveRelative(0,-1,0);
-        }
+        window.activeTet = safeRotate(window.allCubes, window.activeTet, '-z');
         break;
       case 'w':
-        if (window.rotateMode) {
-          window.activeTet = rotateCollection(window.activeTet, '-y');
-        } else {
-          window.activeTet.moveRelative(-1,0,0);
-        }
+          window.activeTet = safeRotate(window.allCubes, window.activeTet, '-y');
         break;
       case 'e':
-        if (window.rotateMode) {
-          window.activeTet = rotateCollection(window.activeTet, '-x');
-        } else {
-          window.activeTet.moveRelative(0,0,1);
-        }
+          window.activeTet = safeRotate(window.allCubes, window.activeTet, '-x');
         break;
       case 'd':
-        if (window.rotateMode) {
-          window.activeTet = rotateCollection(window.activeTet, 'z');
-        } else {
-          window.activeTet.moveRelative(0,1,0);
-        }
+          window.activeTet = safeRotate(window.allCubes, window.activeTet, 'z');
         break;
       case 'z':
-        if (window.rotateMode) {
-          window.activeTet = rotateCollection(window.activeTet, 'x');
-        } else {
-          window.activeTet.moveRelative(0,0,-1);
-        }
+          window.activeTet = safeRotate(window.allCubes, window.activeTet, 'x');
         break;
       case 'x':
-        if (window.rotateMode) {
-          window.activeTet = rotateCollection(window.activeTet, 'y');
-        } else {
-          window.activeTet.moveRelative(1,0,0);
-        }
+          window.activeTet = safeRotate(window.allCubes, window.activeTet, 'y');
         break;
       case 'r':
-        window.rotateMode = !window.rotateMode;
+        safeMove(window.allCubes, window.activeTet, 0, 0, -1);
+        break;
+      case 'q':
+        safeMove(window.allCubes, window.activeTet, 0, 0, 1);
+        break;
+      case 'ArrowLeft':
+        safeMove(window.allCubes, window.activeTet, 0, -1, 0);
+        break;
+      case 'ArrowRight':
+        safeMove(window.allCubes, window.activeTet, 0, 1, 0);
+        break;
+      case 'ArrowUp':
+        safeMove(window.allCubes, window.activeTet, -1, 0, 0);
+        break;
+      case 'ArrowDown':
+        safeMove(window.allCubes, window.activeTet, 1, 0, 0);
+        break;
     }
     cubesToDraw.addCubes(window.activeTet);
     $('#drawing-area').html(drawCollection(cubesToDraw));

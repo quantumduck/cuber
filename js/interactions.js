@@ -69,14 +69,32 @@ function rotateCollection(collection, axis) {
 }
 
 // Check for collisions before moving:
-function safeMove(staticCubes, activeCubes, x, y, z) {
+function safeMove(activeCubes, x, y, z, bounds, staticCubes) {
   activeCubes.moveRelative(x,y,z);
-  for (var i = 0; i < staticCubes.length; i++) {
+  if (bounds) {
     for (var j = 0; j < activeCubes.length; j++) {
-      if (staticCubes[i].equals(activeCubes[j])) {
-        // reverse the action
+      if (
+        activeCubes[j].x > bounds.max.x ||
+        activeCubes[j].x < bounds.min.x ||
+        activeCubes[j].y > bounds.max.y ||
+        activeCubes[j].y < bounds.min.y ||
+        activeCubes[j].z > bounds.max.z ||
+        activeCubes[j].z < bounds.min.z
+      ) {
+        // If any of the above undo the move
         activeCubes.moveRelative(-x,-y,-z);
         return false;
+      }
+    }
+  }
+  if (staticCubes) {
+    for (var i = 0; i < staticCubes.length; i++) {
+      for (var j = 0; j < activeCubes.length; j++) {
+        if (staticCubes[i].equals(activeCubes[j])) {
+          // reverse the action
+          activeCubes.moveRelative(-x,-y,-z);
+          return false;
+        }
       }
     }
   }
@@ -104,4 +122,30 @@ function safeRotate(staticCubes, activeCubes, axis) {
     }
   }
   return rotatedCubes;
+}
+
+function CompletedLayers(collection, length, width, height) {
+  var layers = [];
+  for (var k = 0; k < height; k++) {
+    var i = 0;
+    complete = true;
+    while (complete && i < width) {
+      var j = 0;
+      while (complete && j < length) {
+        if (!collection.hasCube(i,j,k)) {
+          complete = false;
+        }
+        j++;
+      }
+      i++;
+    }
+    if (complete) {
+      layers.push(k);
+    }
+  }
+  return layers;
+}
+
+function RemoveLayers(collection, layers) {
+
 }

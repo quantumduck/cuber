@@ -1,6 +1,14 @@
 function newCollection(cubes) {
   // Take an array of cubes and order it
   var collection = [];
+  collection.hasCube = function(x, y, z) {
+    var cube = newCube(x,y,z);
+    var index = 0;
+    while(cube.greaterThan(this[index])) {
+      index++;
+    }
+    return this[index].equals(cube);
+  }
   collection.addCube = function(cube) {
     var index = 0;
     while(cube.greaterThan(this[index])) {

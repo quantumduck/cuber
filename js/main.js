@@ -26,7 +26,7 @@ for (var i = 0; i < 10; i++) {
   // window.allCubes.addCube(newCube(-1,i,-1,'bg'));
   // window.allCubes.addCube(newCube(i,10,-1,'bg'));
   // window.allCubes.addCube(newCube(-1,10,i,'bg'));
-  for (var j = 0; j < 10; j++) {
+  for (var j = 9; j >= 0; j--) {
     window.allCubes.addCube(newCube(i,j,-1,'bg'));
     // window.allCubes.addCube(newCube(-1,i,j,'bg'));
     // window.allCubes.addCube(newCube(i,10,j,'bg'));

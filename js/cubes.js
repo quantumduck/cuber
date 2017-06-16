@@ -10,17 +10,14 @@ function newCollection(cubes) {
     return this[index].equals(cube);
   };
   collection.addCube = function(cube) {
-    var index = 0;
-    while(cube.greaterThan(this[index])) {
-      index++;
+    var index = this.length;
+    while(cube.lessThan(this[index - 1])) {
+      this[index] = this[index - 1];
+      index--;
     }
     if (cube.equals(this[index])) {
       // skip duplicates
     } else {
-      for (var i = collection.length; i > index; i--) {
-        // Shift cubes over:
-        this[i] = this[i - 1];
-      }
       this[index] = cube;
     }
   };
@@ -91,9 +88,9 @@ function newCube(x, y, z, type) {
       if(!cube) {
         return false;
       }
-      if (this.z > cube.z) {
+      if (this.y < cube.y) {
         return true;
-      } else if (this.y < cube.y) {
+      } else if (this.z > cube.z) {
         return true;
       } else if (this.x > cube.x) {
         return true;
@@ -107,9 +104,11 @@ function newCube(x, y, z, type) {
       }
       if (this.z < cube.z) {
         return true;
-      } else if (this.y > cube.y) {
-        return true;
+      } else if (this.z > cube.z) {
+        return false;
       } else if (this.x < cube.x) {
+        return true;
+      } else if (this.y > cube.y) {
         return true;
       } else {
         return false;

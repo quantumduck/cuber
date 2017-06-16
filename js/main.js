@@ -28,7 +28,11 @@ window.rotateMode = false; // flag for turning on/off rotations
 
 function drawNow() {
   var cubesToDraw = newCollection(window.allCubes);
+  var activeShadow = shadow(window.activeTet, window.allCubes);
   cubesToDraw.addCubes(window.activeTet);
+  if (activeShadow) {
+    cubesToDraw.addCubes(activeShadow);
+  }
   $('#drawing-area').html(drawCollection(cubesToDraw));
   $('#message-box').html(
     "Current Position (" +
@@ -43,7 +47,7 @@ $(function() {
 
   // setInterval(function() {
   //   // Move active piece down, if possible:
-  //   if (!safeMove(window.activeTet, 0, 0, -1, window.bounds, window.allCubes)) {
+  //   if (!safeMove(window.activeTet, 0, 0, -1, window.allCubes, window.bounds)) {
   //     // If it doesn't move, freeze it in place:
   //     window.allCubes.addCubes(window.activeTet);
   //     cubesToDraw = newCollection(window.allCubes);
@@ -75,25 +79,25 @@ $(function() {
           window.activeTet = safeRotate(window.allCubes, window.activeTet, 'y');
         break;
       case 'PageDown':
-        safeMove(window.activeTet, 0, 0, -1, window.bounds, window.allCubes);
+        safeMove(window.activeTet, 0, 0, -1, window.allCubes, window.bounds);
         break;
       case 'PageUp':
-        safeMove(window.activeTet, 0, 0, 1, window.bounds, window.allCubes);
+        safeMove(window.activeTet, 0, 0, 1, window.allCubes, window.bounds);
         break;
       case 'ArrowLeft':
-        safeMove(window.activeTet, 0, -1, 0, window.bounds, window.allCubes);
+        safeMove(window.activeTet, 0, -1, 0, window.allCubes, window.bounds);
         break;
       case 'ArrowRight':
-        safeMove(window.activeTet, 0, 1, 0, window.bounds, window.allCubes);
+        safeMove(window.activeTet, 0, 1, 0, window.allCubes, window.bounds);
         break;
       case 'ArrowUp':
-        safeMove(window.activeTet, -1, 0, 0, window.bounds, window.allCubes);
+        safeMove(window.activeTet, -1, 0, 0, window.allCubes, window.bounds);
         break;
       case 'ArrowDown':
-        safeMove(window.activeTet, 1, 0, 0, window.bounds, window.allCubes);
+        safeMove(window.activeTet, 1, 0, 0, window.allCubes, window.bounds);
         break;
       case 'End':
-        while(safeMove(window.activeTet, 0, 0, -1, window.bounds, window.allCubes)) {
+        while(safeMove(window.activeTet, 0, 0, -1, window.allCubes, window.bounds)) {
         }
         window.allCubes.addCubes(window.activeTet);
         cubesToDraw = newCollection(window.allCubes);

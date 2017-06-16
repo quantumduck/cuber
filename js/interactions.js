@@ -69,7 +69,7 @@ function rotateCollection(collection, axis) {
 }
 
 // Check for collisions before moving:
-function safeMove(activeCubes, x, y, z, bounds, staticCubes) {
+function safeMove(activeCubes, x, y, z, staticCubes, bounds) {
   activeCubes.moveRelative(x,y,z);
   if (bounds) {
     for (var j = 0; j < activeCubes.length; j++) {
@@ -181,4 +181,27 @@ function removeLayers(collection, minimum) {
     }
   }
   return zShift;
+}
+
+function shadow(activeCubes, staticCubes) {
+  // Return a shadow showing where the active cubes will fall:
+  var shadowCubes = newCollection([]);
+  var roomToMove = false;
+  for (var i = 0; i < activeCubes.length; i++) {
+    shadowCubes.addCube(newCube(
+      activeCubes[i].x,
+      activeCubes[i].y,
+      activeCubes[i].z,
+      'shadow'
+    ));
+  }
+  while (safeMove(shadowCubes, 0, 0, -1, staticCubes)) {
+    roomToMove = true;
+  }
+  if (roomToMove) {
+    return shadowCubes;
+  } else {
+    // If active cubes can't move down. Don't return anything.
+    return false;
+  }
 }

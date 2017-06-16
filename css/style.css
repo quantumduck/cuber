@@ -76,6 +76,10 @@ body {
   color: #FF00FF;
 }
 
+.shadow {
+  color: #333333;
+}
+
 button {
   font-family: monospace;
   line-height: 1em;

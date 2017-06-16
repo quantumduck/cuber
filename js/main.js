@@ -14,7 +14,15 @@ window.bounds = {
 window.allCubes = newCollection([]); // Collection of all cube objects to be
                                     // displayed.
 // Adding background cubes:
+window.allCubes.addCube(newCube(-1,10,20,'bg'));
+window.allCubes.addCube(newCube(10,10,20,'bg'));
+window.allCubes.addCube(newCube(-1,-1,20,'bg'));
+window.allCubes.addCube(newCube(10,-1,20,'bg'));
 for (var i = 0; i < 10; i++) {
+  window.allCubes.addCube(newCube(i,10,20,'bg'));
+  window.allCubes.addCube(newCube(10,i,20,'bg'));
+  window.allCubes.addCube(newCube(i,-1,20,'bg'));
+  window.allCubes.addCube(newCube(-1,i,20,'bg'));
   // window.allCubes.addCube(newCube(-1,i,-1,'bg'));
   // window.allCubes.addCube(newCube(i,10,-1,'bg'));
   // window.allCubes.addCube(newCube(-1,10,i,'bg'));
@@ -45,16 +53,16 @@ function drawNow() {
 $(function() {
   drawNow();
 
-  setInterval(function() {
-    // Move active piece down, if possible:
-    if (!safeMove(window.activeTet, 0, 0, -1, window.allCubes, window.bounds)) {
-      // If it doesn't move, freeze it in place:
-      window.allCubes.addCubes(window.activeTet);
-      cubesToDraw = newCollection(window.allCubes);
-      window.activeTet = newRandomTet();
-    }
-    drawNow();
-  }, 1000);
+  // setInterval(function() {
+  //   // Move active piece down, if possible:
+  //   if (!safeMove(window.activeTet, 0, 0, -1, window.allCubes, window.bounds)) {
+  //     // If it doesn't move, freeze it in place:
+  //     window.allCubes.addCubes(window.activeTet);
+  //     cubesToDraw = newCollection(window.allCubes);
+  //     window.activeTet = newRandomTet();
+  //   }
+  //   drawNow();
+  // }, 1000);
 
   $(window).on('keydown', function(e) {
     console.log(e.key);

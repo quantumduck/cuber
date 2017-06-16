@@ -101,6 +101,20 @@ function newCube(x, y, z, type) {
         return false;
       }
     },
+    lessThan: function(cube) {
+      if(!cube) {
+        return false;
+      }
+      if (this.z < cube.z) {
+        return true;
+      } else if (this.y > cube.y) {
+        return true;
+      } else if (this.x < cube.x) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     equals: function(cube) {
       if (!cube) {
         return false;

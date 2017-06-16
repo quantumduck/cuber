@@ -91,11 +91,11 @@ function newCube(x, y, z, type) {
       if(!cube) {
         return false;
       }
-      if (this.x > cube.x) {
+      if (this.z > cube.z) {
         return true;
       } else if (this.y < cube.y) {
         return true;
-      } else if (this.z > cube.z) {
+      } else if (this.x > cube.x) {
         return true;
       } else {
         return false;

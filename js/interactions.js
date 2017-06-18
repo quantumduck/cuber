@@ -148,6 +148,17 @@ function getLayers(collection) {
   return all_layers;
 }
 
+function shiftLayersDown(layers) {
+  var z = layers[0].z + 1;
+  for (var i = 1; i < layers.length; i++) {
+    if (layers[i].z !== z) {
+      layers[i].cubes.moveRelative(0,0,z - layers[i].z);
+      layers[i].z = z;
+    }
+    z++;
+  }
+}
+
 function shadow(activeCubes, staticCubes) {
   // Return a shadow showing where the active cubes will fall:
   var shadowCubes = newCollection([]);

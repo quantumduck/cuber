@@ -124,51 +124,26 @@ function safeRotate(staticCubes, activeCubes, axis) {
   return rotatedCubes;
 }
 
-function CompletedLayers(collection, length, width, height) {
-  var layers = [];
-  for (var k = 0; k < height; k++) {
-    var i = 0;
-    complete = true;
-    while (complete && i < width) {
-      var j = 0;
-      while (complete && j < length) {
-        if (!collection.hasCube(i,j,k)) {
-          complete = false;
-        }
-        j++;
-      }
-      i++;
-    }
-    if (complete) {
-      layers.push(k);
-    }
-  }
-  return layers;
-}
-
-function removeLayers(collection, minimum) {
+function getLayers(collection) {
+  // Returns an array of collections for each layer.
   var bounds = boundaries(collection);
   var all_layers = [];
-  var full_layer = (
-      (bounds.max.x - bounds.min.x + 1) *
-      (bounds.max.y - bounds.min.y + 1)
-  );
-  var zShift = 0;
-
-  if (!minimum) {
-    minimum = 0;
-  }
-  for (var i = bounds.min.z; i < bounds.max.z; i++) {
+  var layer = {
+    z: bounds.min.z,
+    cubes: newCollection([])
+  };
+  for (var i = bounds.max.z; i < bounds.min.z; i--) {
     console.log(i)
-    var lastCube = newCube(-1, 10, i + 1);
+    var lastCube = newCube(11, -2, i - 1);
     var layer = newCollection([]);
-
-    while (lastCube.greaterThan(collection[0])) {
-      console.log(collection[0])
-      layer.addCube(collection[0]);
-      collection.deleteCube(collection[0]);
+    var currentCube = collection.pop();
+    while (lastCube.lessThan(currentCube)) {
+      layer.addCube(currentCube);
+      currentCube = collection.pop();
     }
     all_layers.push(layer);
+    layer = newCollection([]);
+    layer.push(currentCube);
   }
   all_layers.push(collection);
   for (var i = 0; i < all_layers.length; i++) {

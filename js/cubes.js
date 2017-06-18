@@ -3,20 +3,22 @@ function newCollection(cubes) {
   var collection = [];
   collection.hasCube = function(x, y, z) {
     var cube = newCube(x,y,z);
-    var index = 0;
-    while(cube.greaterThan(this[index])) {
-      index++;
+    for (var i = 0; i < collection.length; i++) {
+      if (cube.equals(this[i])) {
+        return true;
+      }
     }
-    return this[index].equals(cube);
+    return false;
   };
   collection.addCube = function(cube) {
     var index = this.length;
-    while(cube.lessThan(this[index - 1])) {
+    while(index > 0 && cube.lessThan(this[index - 1])) {
       this[index] = this[index - 1];
       index--;
     }
     if (cube.equals(this[index])) {
-      // skip duplicates
+      // roll back if duplicate:
+      this.deleteCube(this[index + 1]);
     } else {
       this[index] = cube;
     }
@@ -84,20 +86,20 @@ function newCube(x, y, z, type) {
     y: y,
     z: z,
     formatClass: type,
-    greaterThan: function(cube) {
-      if(!cube) {
-        return false;
-      }
-      if (this.y < cube.y) {
-        return true;
-      } else if (this.z > cube.z) {
-        return true;
-      } else if (this.x > cube.x) {
-        return true;
-      } else {
-        return false;
-      }
-    },
+    // greaterThan: function(cube) {
+    //   if(!cube) {
+    //     return false;
+    //   }
+    //   if (this.y < cube.y) {
+    //     return true;
+    //   } else if (this.z > cube.z) {
+    //     return true;
+    //   } else if (this.x > cube.x) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // },
     lessThan: function(cube) {
       if(!cube) {
         return false;
@@ -106,9 +108,11 @@ function newCube(x, y, z, type) {
         return true;
       } else if (this.z > cube.z) {
         return false;
-      } else if (this.x < cube.x) {
-        return true;
       } else if (this.y > cube.y) {
+        return true;
+      } else if (this.y < cube.y) {
+        return false;
+      } else if (this.x < cube.x) {
         return true;
       } else {
         return false;

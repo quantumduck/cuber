@@ -128,34 +128,24 @@ function getLayers(collection) {
   // Returns an array of collections for each layer.
   var bounds = boundaries(collection);
   var all_layers = [];
+  var zIndex = bounds.min.z;
   var layer = {
-    z: bounds.min.z,
+    z: zIndex,
     cubes: newCollection([])
   };
-  for (var i = bounds.max.z; i < bounds.min.z; i--) {
-    console.log(i)
-    var lastCube = newCube(11, -2, i - 1);
-    var layer = newCollection([]);
-    var currentCube = collection.pop();
-    while (lastCube.lessThan(currentCube)) {
-      layer.addCube(currentCube);
-      currentCube = collection.pop();
+  for (var i = 0; i < collection.length; i++) {
+    var cube = collection[i];
+    if (cube.z !== layer.z) {
+      all_layers.push(layer);
+      layer = {
+        z: cube.z,
+        cubes: newCollection([])
+      };
     }
-    all_layers.push(layer);
-    layer = newCollection([]);
-    layer.push(currentCube);
+    layer.cubes.push(cube);
   }
-  all_layers.push(collection);
-  for (var i = 0; i < all_layers.length; i++) {
-    if (i < minimum) {
-      collection.addCubes(all_layers[i]);
-    } else if (all_layers[i].length === full_layer) {
-      zShift++;
-    } else {
-      collection.addCubes(all_layers[i].moveRelative(0,0,-zShift));
-    }
-  }
-  return zShift;
+  all_layers.push(layer);
+  return all_layers;
 }
 
 function shadow(activeCubes, staticCubes) {

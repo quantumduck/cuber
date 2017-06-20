@@ -154,7 +154,7 @@ function shiftLayersDown(layers, level) {
     if (layers[i].z !== z) {
       layers[i].cubes.moveRelative(0,0,(z - layers[i].z));
       layers[i].z = z;
-      console.log(layers[i]);
+      // console.log(layers[i]);
     }
     z++;
   }

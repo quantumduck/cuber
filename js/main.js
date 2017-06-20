@@ -73,7 +73,7 @@ function removeFullLayers() {
   // hijack layerSize to make game easier
   layerSize = 10;
   for (var i = 1; i < layers.length; i++) {
-    console.log(layers[i].cubes.length);
+    // console.log(layers[i].cubes.length);
     // Note: index starts at 1 to skip base layer.
     if (layers[i].cubes.length === layerSize) {
       fullLayers.push(layers[i]);
@@ -85,12 +85,12 @@ function removeFullLayers() {
   if (fullLayers.length > 0) {
     var leftoverCubes = newCollection(window.allCubes);
     for (var j = 0; j < fullLayers.length; j++) {
-      console.log(fullLayers[j]);
+      // console.log(fullLayers[j]);
       leftoverCubes.deleteCubes(fullLayers[j].cubes);
     }
-    console.log(newLayers);
+    // console.log(newLayers);
     shiftLayersDown(newLayers, 0);
-    console.log(newLayers);
+    // console.log(newLayers);
     setTimeout(function () {
       drawNow(leftoverCubes);
       setTimeout(function () {

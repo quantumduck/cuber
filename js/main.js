@@ -71,7 +71,7 @@ function removeFullLayers() {
   );
   var fullLayers = [];
   // hijack layerSize to make game easier
-  layerSize = 10;
+  // layerSize = 10;
   for (var i = 1; i < layers.length; i++) {
     // console.log(layers[i].cubes.length);
     // Note: index starts at 1 to skip base layer.

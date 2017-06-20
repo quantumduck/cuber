@@ -35,7 +35,7 @@ function newCollection(cubes) {
     }
     this.pop();
   };
-  collection.deleteCubes = function(extracubes) {
+  collection.deleteCubes = function(extraCubes) {
     for (var k = 0; k < extraCubes.length; k++) {
       this.deleteCube(extraCubes[k]);
     }

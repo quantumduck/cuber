@@ -62,16 +62,18 @@ function drawNow(collection) {
 
 function removeFullLayers() {
   // Includes logic to remove full layers and make them flash on and off...
+  // A bit long for main.js. will possibly move it later
   var layers = getLayers(window.allCubes);
   var newLayers = [];
   var layerSize = (
     (window.bounds.max.x - window.bounds.min.x + 1) *
     (window.bounds.max.y - window.bounds.min.y + 1)
   );
-
   var fullLayers = [];
+  // hijack layerSize to make game easier
   layerSize = 10;
   for (var i = 1; i < layers.length; i++) {
+    console.log(layers[i].cubes.length);
     // Note: index starts at 1 to skip base layer.
     if (layers[i].cubes.length === layerSize) {
       fullLayers.push(layers[i]);
@@ -81,24 +83,26 @@ function removeFullLayers() {
     }
   }
   if (fullLayers.length > 0) {
-    var leftoverCubes = newCollection(window.allCube);
+    var leftoverCubes = newCollection(window.allCubes);
     for (var j = 0; j < fullLayers.length; j++) {
-      leftoverCubes.deleteCubes(fullLayers[j]);
+      console.log(fullLayers[j]);
+      leftoverCubes.deleteCubes(fullLayers[j].cubes);
     }
-    shiftLayersDown(newLayers);
+    console.log(newLayers);
+    shiftLayersDown(newLayers, 0);
+    console.log(newLayers);
     setTimeout(function () {
-      drawNow(window.allCubes);
+      drawNow(leftoverCubes);
       setTimeout(function () {
-        drawNow(leftoverCubes);
+        drawNow(window.allCubes);
         setTimeout(function () {
-          drawNow(window.allCubes);
+          drawNow(leftoverCubes);
           setTimeout(function () {
-            drawNow(leftoverCubes);
-            window.allCubes = newCollection([]);
+            resetCubes();
             for (var i = 0; i < newLayers.length; i++) {
-              window.allCubes.addCubes(newLayers[i]);
-              drawNow();
+              window.allCubes.addCubes(newLayers[i].cubes);
             }
+            drawNow();
           }, 200);
         }, 200);
       }, 200);
@@ -175,7 +179,7 @@ $(function() {
         window.allCubes.addCubes(window.activeTet);
         cubesToDraw = newCollection(window.allCubes);
         window.activeTet = newRandomTet();
-        // removeFullLayers();
+        removeFullLayers();
         break;
     }
     drawNow();

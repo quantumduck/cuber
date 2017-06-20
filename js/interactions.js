@@ -148,12 +148,13 @@ function getLayers(collection) {
   return all_layers;
 }
 
-function shiftLayersDown(layers) {
-  var z = layers[0].z + 1;
-  for (var i = 1; i < layers.length; i++) {
+function shiftLayersDown(layers, level) {
+  var z = level;
+  for (var i = 0; i < layers.length; i++) {
     if (layers[i].z !== z) {
-      layers[i].cubes.moveRelative(0,0,z - layers[i].z);
+      layers[i].cubes.moveRelative(0,0,(z - layers[i].z));
       layers[i].z = z;
+      console.log(layers[i]);
     }
     z++;
   }

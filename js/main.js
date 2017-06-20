@@ -44,11 +44,26 @@ function drawNow(collection) {
   if (!collection) {
     collection = window.allCubes;
   }
+  var layers = getLayers(collection);
+  var layerList = '';
   var cubesToDraw = newCollection(collection);
   var activeShadow = shadow(window.activeTet, collection);
   cubesToDraw.addCubes(window.activeTet);
   if (activeShadow) {
     cubesToDraw.addCubes(activeShadow);
+  }
+  for (var i = 0; i < layers.length; i++) {
+    if (layers[i].z >= 0 && layers[i].z < 20) {
+      var count = layers[i].cubes.length;
+      layerList += ("Layer " + layers[i].z +
+        ": " + count
+      );
+      if (count === 1) {
+        layerList += " cube<br>";
+      } else {
+        layerList += " cubes<br>";
+      }
+    }
   }
   $('#drawing-area').html(drawCollection(cubesToDraw));
   $('#message-box').html(
@@ -56,7 +71,8 @@ function drawNow(collection) {
     boundaries(window.activeTet).min.x + ", " +
     boundaries(window.activeTet).min.y + ", " +
     boundaries(window.activeTet).min.z + ")" +
-    "<br>" + window.points + " points."
+    "<br>" + window.points + " points.<br>" +
+    layerList
   );
 }
 

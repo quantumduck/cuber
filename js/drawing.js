@@ -58,9 +58,9 @@ function flattenCollection(collection) {
     drawing[row + 1][col + 1] = '\\' + collection[k].formatClass;
     drawing[row + 1][col + 2] = '_' + collection[k].formatClass;
     drawing[row + 1][col + 3] = '\\' + collection[k].formatClass;
-    if (drawing[row + 2][col + 2] === ' ') {
+    if (drawing[row + 2][col + 2] === ' ' || drawing[row + 2][col + 2][0] === '_') {
       drawing[row + 2][col + 2] = '_' + collection[k].formatClass;
-    } else if (drawing[row + 2][col + 1] === ' ') {
+    } else if (drawing[row + 2][col + 1] === ' ' || drawing[row + 2][col + 1][0] === '_') {
       drawing[row + 2][col + 1] = '_' + collection[k].formatClass;
     }
   }

@@ -3,24 +3,23 @@ function newCollection(cubes) {
   var collection = [];
   collection.hasCube = function(x, y, z) {
     var cube = newCube(x,y,z);
-    var index = 0;
-    while(cube.greaterThan(this[index])) {
-      index++;
+    for (var i = 0; i < collection.length; i++) {
+      if (cube.equals(this[i])) {
+        return true;
+      }
     }
-    return this[index].equals(cube);
+    return false;
   };
   collection.addCube = function(cube) {
-    var index = 0;
-    while(cube.greaterThan(this[index])) {
-      index++;
+    var index = this.length;
+    while(index > 0 && cube.lessThan(this[index - 1])) {
+      this[index] = this[index - 1];
+      index--;
     }
     if (cube.equals(this[index])) {
-      // skip duplicates
+      // roll back if duplicate:
+      this.deleteCube(this[index + 1]);
     } else {
-      for (var i = collection.length; i > index; i--) {
-        // Shift cubes over:
-        this[i] = this[i - 1];
-      }
       this[index] = cube;
     }
   };
@@ -36,7 +35,7 @@ function newCollection(cubes) {
     }
     this.pop();
   };
-  collection.deleteCubes = function(extracubes) {
+  collection.deleteCubes = function(extraCubes) {
     for (var k = 0; k < extraCubes.length; k++) {
       this.deleteCube(extraCubes[k]);
     }
@@ -87,15 +86,33 @@ function newCube(x, y, z, type) {
     y: y,
     z: z,
     formatClass: type,
-    greaterThan: function(cube) {
+    // greaterThan: function(cube) {
+    //   if(!cube) {
+    //     return false;
+    //   }
+    //   if (this.y < cube.y) {
+    //     return true;
+    //   } else if (this.z > cube.z) {
+    //     return true;
+    //   } else if (this.x > cube.x) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // },
+    lessThan: function(cube) {
       if(!cube) {
         return false;
       }
-      if (this.x > cube.x) {
-        return true;
-      } else if (this.y < cube.y) {
+      if (this.z < cube.z) {
         return true;
       } else if (this.z > cube.z) {
+        return false;
+      } else if (this.y > cube.y) {
+        return true;
+      } else if (this.y < cube.y) {
+        return false;
+      } else if (this.x < cube.x) {
         return true;
       } else {
         return false;

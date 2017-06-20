@@ -124,63 +124,40 @@ function safeRotate(staticCubes, activeCubes, axis) {
   return rotatedCubes;
 }
 
-function CompletedLayers(collection, length, width, height) {
-  var layers = [];
-  for (var k = 0; k < height; k++) {
-    var i = 0;
-    complete = true;
-    while (complete && i < width) {
-      var j = 0;
-      while (complete && j < length) {
-        if (!collection.hasCube(i,j,k)) {
-          complete = false;
-        }
-        j++;
-      }
-      i++;
-    }
-    if (complete) {
-      layers.push(k);
-    }
-  }
-  return layers;
-}
-
-function removeLayers(collection, minimum) {
+function getLayers(collection) {
+  // Returns an array of collections for each layer.
   var bounds = boundaries(collection);
   var all_layers = [];
-  var full_layer = (
-      (bounds.max.x - bounds.min.x + 1) *
-      (bounds.max.y - bounds.min.y + 1)
-  );
-  var zShift = 0;
-
-  if (!minimum) {
-    minimum = 0;
-  }
-  for (var i = bounds.min.z; i < bounds.max.z; i++) {
-    console.log(i)
-    var lastCube = newCube(-1, 10, i + 1);
-    var layer = newCollection([]);
-
-    while (lastCube.greaterThan(collection[0])) {
-      console.log(collection[0])
-      layer.addCube(collection[0]);
-      collection.deleteCube(collection[0]);
+  var zIndex = bounds.min.z;
+  var layer = {
+    z: zIndex,
+    cubes: newCollection([])
+  };
+  for (var i = 0; i < collection.length; i++) {
+    var cube = collection[i];
+    if (cube.z !== layer.z) {
+      all_layers.push(layer);
+      layer = {
+        z: cube.z,
+        cubes: newCollection([])
+      };
     }
-    all_layers.push(layer);
+    layer.cubes.push(cube);
   }
-  all_layers.push(collection);
-  for (var i = 0; i < all_layers.length; i++) {
-    if (i < minimum) {
-      collection.addCubes(all_layers[i]);
-    } else if (all_layers[i].length === full_layer) {
-      zShift++;
-    } else {
-      collection.addCubes(all_layers[i].moveRelative(0,0,-zShift));
+  all_layers.push(layer);
+  return all_layers;
+}
+
+function shiftLayersDown(layers, level) {
+  var z = level;
+  for (var i = 0; i < layers.length; i++) {
+    if (layers[i].z !== z) {
+      layers[i].cubes.moveRelative(0,0,(z - layers[i].z));
+      layers[i].z = z;
+      console.log(layers[i]);
     }
+    z++;
   }
-  return zShift;
 }
 
 function shadow(activeCubes, staticCubes) {

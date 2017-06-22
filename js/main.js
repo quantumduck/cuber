@@ -171,12 +171,12 @@ $(function() {
       case 'x':
           window.activeTet = safeRotate(window.allCubes, window.activeTet, 'y', window.bounds);
         break;
-      case 'PageDown':
-        safeMove(window.activeTet, 0, 0, -1, window.allCubes, window.bounds);
-        break;
-      case 'PageUp':
-        safeMove(window.activeTet, 0, 0, 1, window.allCubes, window.bounds);
-        break;
+      // case 'PageDown':
+      //   safeMove(window.activeTet, 0, 0, -1, window.allCubes, window.bounds);
+      //   break;
+      // case 'PageUp':
+      //   safeMove(window.activeTet, 0, 0, 1, window.allCubes, window.bounds);
+      //   break;
       case 'ArrowLeft':
         safeMove(window.activeTet, 0, -1, 0, window.allCubes, window.bounds);
         break;

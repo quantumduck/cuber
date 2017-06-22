@@ -151,7 +151,6 @@ $(function() {
   }, 1000);
 
   $(window).on('keydown', function(e) {
-    console.log(e.key);
     // Parsing the keyboard
     switch (e.key) {
       case 'a':
@@ -191,6 +190,7 @@ $(function() {
         safeMove(window.activeTet, 1, 0, 0, window.allCubes, window.bounds);
         break;
       case ' ':
+        e.preventDefault();
         // use spacebar to drop
         while(safeMove(window.activeTet, 0, 0, -1, window.allCubes, window.bounds)) {
         }

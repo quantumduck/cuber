@@ -105,7 +105,7 @@ function safeMove(activeCubes, x, y, z, staticCubes, bounds) {
 function safeRotate(staticCubes, activeCubes, axis, bounds) {
   var rotatedCubes = rotateCollection(activeCubes, axis);
   if (bounds) {
-    for (var j = 0; j < activeCubes.length; j++) {
+    for (var j = 0; j < rotatedCubes.length; j++) {
       if (
         activeCubes[j].x > bounds.max.x ||
         activeCubes[j].x < bounds.min.x ||

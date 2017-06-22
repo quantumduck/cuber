@@ -190,7 +190,7 @@ $(function() {
       case 'ArrowDown':
         safeMove(window.activeTet, 1, 0, 0, window.allCubes, window.bounds);
         break;
-      case 'End':
+      case ' ':
         while(safeMove(window.activeTet, 0, 0, -1, window.allCubes, window.bounds)) {
         }
         window.allCubes.addCubes(window.activeTet);

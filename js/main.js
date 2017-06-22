@@ -48,10 +48,11 @@ function drawNow(collection) {
   var layerList = '';
   var cubesToDraw = newCollection(collection);
   var activeShadow = shadow(window.activeTet, collection);
-  cubesToDraw.addCubes(window.activeTet);
+
   if (activeShadow) {
     cubesToDraw.addCubes(activeShadow);
   }
+  cubesToDraw.addCubes(window.activeTet);
   for (var i = 0; i < layers.length; i++) {
     if (layers[i].z >= 0 && layers[i].z < 20) {
       var count = layers[i].cubes.length;

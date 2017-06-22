@@ -34,9 +34,9 @@ function resetCubes() {
       // window.allCubes.addCube(newCube(i,10,j,'bg'));
     }
   }
-  window.rotateMode = false; // flag for turning on/off rotations
-  window.points = 0;
 }
+
+window.points = 0;
 
 resetCubes();
 

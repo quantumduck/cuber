@@ -178,15 +178,19 @@ $(function() {
       //   safeMove(window.activeTet, 0, 0, 1, window.allCubes, window.bounds);
       //   break;
       case 'ArrowLeft':
+        e.preventDefault();
         safeMove(window.activeTet, 0, -1, 0, window.allCubes, window.bounds);
         break;
       case 'ArrowRight':
+        e.preventDefault();
         safeMove(window.activeTet, 0, 1, 0, window.allCubes, window.bounds);
         break;
       case 'ArrowUp':
+        e.preventDefault();
         safeMove(window.activeTet, -1, 0, 0, window.allCubes, window.bounds);
         break;
       case 'ArrowDown':
+        e.preventDefault();
         safeMove(window.activeTet, 1, 0, 0, window.allCubes, window.bounds);
         break;
       case ' ':

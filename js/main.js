@@ -154,22 +154,22 @@ $(function() {
     // Parsing the keyboard
     switch (e.key) {
       case 'a':
-        window.activeTet = safeRotate(window.allCubes, window.activeTet, '-z');
+        window.activeTet = safeRotate(window.allCubes, window.activeTet, '-z', window.bounds);
         break;
       case 'w':
-          window.activeTet = safeRotate(window.allCubes, window.activeTet, '-y');
+          window.activeTet = safeRotate(window.allCubes, window.activeTet, '-y', window.bounds);
         break;
       case 'e':
-          window.activeTet = safeRotate(window.allCubes, window.activeTet, '-x');
+          window.activeTet = safeRotate(window.allCubes, window.activeTet, '-x', window.bounds);
         break;
       case 'd':
-          window.activeTet = safeRotate(window.allCubes, window.activeTet, 'z');
+          window.activeTet = safeRotate(window.allCubes, window.activeTet, 'z', window.bounds);
         break;
       case 'z':
-          window.activeTet = safeRotate(window.allCubes, window.activeTet, 'x');
+          window.activeTet = safeRotate(window.allCubes, window.activeTet, 'x', window.bounds);
         break;
       case 'x':
-          window.activeTet = safeRotate(window.allCubes, window.activeTet, 'y');
+          window.activeTet = safeRotate(window.allCubes, window.activeTet, 'y', window.bounds);
         break;
       case 'PageDown':
         safeMove(window.activeTet, 0, 0, -1, window.allCubes, window.bounds);

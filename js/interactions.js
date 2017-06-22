@@ -102,22 +102,26 @@ function safeMove(activeCubes, x, y, z, staticCubes, bounds) {
 }
 
 // Check for collisions before rotating:
-function safeRotate(staticCubes, activeCubes, axis) {
+function safeRotate(staticCubes, activeCubes, axis, bounds) {
   var rotatedCubes = rotateCollection(activeCubes, axis);
-  if (axis[0] === '-') {
-    for (var i = 0; i < staticCubes.length; i++) {
-      for (var j = 0; j < rotatedCubes.length; j++) {
-        if (staticCubes[i].equals(rotatedCubes[j])) {
-          return activeCubes;
-        }
+  if (bounds) {
+    for (var j = 0; j < activeCubes.length; j++) {
+      if (
+        activeCubes[j].x > bounds.max.x ||
+        activeCubes[j].x < bounds.min.x ||
+        activeCubes[j].y > bounds.max.y ||
+        activeCubes[j].y < bounds.min.y ||
+        activeCubes[j].z > bounds.max.z ||
+        activeCubes[j].z < bounds.min.z
+      ) {
+        return activeCubes;
       }
     }
-  } else {
-    for (var i = 0; i < staticCubes.length; i++) {
-      for (var j = 0; j < rotatedCubes.length; j++) {
-        if (staticCubes[i].equals(rotatedCubes[j])) {
-          return activeCubes;
-        }
+  }
+  for (var i = 0; i < staticCubes.length; i++) {
+    for (var j = 0; j < rotatedCubes.length; j++) {
+      if (staticCubes[i].equals(rotatedCubes[j])) {
+        return activeCubes;
       }
     }
   }
